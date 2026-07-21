@@ -799,5 +799,50 @@
     loadProfil()
   </script>
   </body>
+
+<!-- Tempat nampilin berita -->
+<section id="berita">
+  <h2>Berita Kegiatan</h2>
+  <div id="listBerita">Loading berita...</div>
+</section>
+
+<!-- Tempat nampilin UMKM -->
+<section id="umkm">
+  <h2>UMKM Dusun Salehan</h2>
+  <div id="listUMKM">Loading UMKM...</div>
+</section>
+
+<script type="module">
+  import { supabase } from './js/supabase.js'
+
+  // TAMPILIN BERITA
+  const { data: berita } = await supabase
+    .from('berita')
+    .select('*')
+    .order('tanggal', { ascending: false })
+
+  document.getElementById('listBerita').innerHTML = berita?.length 
+    ? berita.map(b => `
+      <div style="border:1px solid #ddd; padding:12px; margin:8px 0">
+        <h3>${b.judul}</h3>
+        <p>${b.isi}</p>
+        <small>${b.tanggal}</small>
+      </div>
+    `).join('') 
+    : 'Belum ada berita'
+
+  // TAMPILIN UMKM
+  const { data: umkm } = await supabase.from('umkm').select('*')
+  
+  document.getElementById('listUMKM').innerHTML = umkm?.length
+    ? umkm.map(u => `
+      <div style="border:1px solid #ddd; padding:12px; margin:8px 0">
+        <b>${u.nama_usaha}</b> - ${u.pemilik}
+        <p>${u.deskripsi}</p>
+        <a href="https://wa.me/${u.no_wa}" target="_blank">Chat WA</a>
+      </div>
+    `).join('')
+    : 'Belum ada UMKM'
+</script>
 </body>
 </html>
