@@ -689,160 +689,82 @@
     </script>
 
     <!-- SCRIPT SUPABASE BUAT NARIK DATA DINAMIS -->
-    <script type="module">
-        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
-  
-        // GANTI 2 INI PAKE PUNYA LU DARI SUPABASE > SETTINGS > API
-        const SUPABASE_URL = 'https://vufymausskugbgnrtinx.supabase.co' 
-        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ1ZnltYXVzc2t1Z2JnbnJ0aW54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM5MDQwODksImV4cCI6MjA5OTQ4MDA4OX0.SFXT6xCeQtShORlC2TPNhW3BI3Tj4vI2oD07wcRBKwU' 
-        
-        const supabase = createClient(SUPABASE_URL, SUPABASE_KEY)
-  
-        async function loadProfil() {
-          const { data: profil, error } = await supabase
-            .from('profil_desa')
-            .select('*')
-            .eq('id', 1)
-            .single()
-  
-          if (error) {
-            console.log('Gagal load profil:', error)
-            return
-          }
-  
-          if (!profil) return
-  
-          // Ganti Nama + Tagline Utama
-          if (profil.nama) document.getElementById('nama-dusun').innerText = profil.nama
-          if (profil.tagline) document.getElementById('tagline-dusun').innerText = profil.tagline
-  
-          // Ganti Gambar Hero
-          if (profil.image) document.getElementById('hero-image').src = profil.image
-  
-          // Ganti Section Wilayah
-          if (profil.wilayah_judul) document.getElementById('wilayah-judul').innerText = profil.wilayah_judul
-          if (profil.wilayah_rt) document.getElementById('wilayah-rt').innerText = profil.wilayah_rt
-          if (profil.wilayah_deskripsi) document.getElementById('wilayah-deskripsi').innerText = profil.wilayah_deskripsi
-  
-          // Ganti Section UMKM
-          if (profil.umkm_judul) document.getElementById('umkm-judul').innerText = profil.umkm_judul
-          if (profil.umkm_deskripsi) document.getElementById('umkm-deskripsi').innerText = profil.umkm_deskripsi
-          if (profil.umkm_icon) document.getElementById('umkm-icon').className = `fa-solid ${profil.umkm_icon}`
-  
-          // Ganti Foto Warga
-          if (profil.warga_img_1) document.getElementById('warga-img-1').src = profil.warga_img_1
-          if (profil.warga_img_2) document.getElementById('warga-img-2').src = profil.warga_img_2
-          if (profil.warga_img_3) document.getElementById('warga-img-3').src = profil.warga_img_3
-          if (profil.warga_jumlah) document.getElementById('warga-jumlah').innerText = profil.warga_jumlah
-  
-          // Ganti Section Peta
-          if (profil.peta_judul) document.getElementById('peta-judul').innerText = profil.peta_judul
-          if (profil.peta_deskripsi) document.getElementById('peta-deskripsi').innerText = profil.peta_deskripsi
-          if (profil.peta_link) document.getElementById('peta-link').href = profil.peta_link
-          if (profil.gmaps) document.getElementById('gmaps-iframe').src = profil.gmaps
-  
-          // Ganti Title Halaman
-          document.title = profil.nama + ' - Profil Dusun'
-        }
-  
-        loadProfil()
-      </script>
-  </body>
-  </html>
-  </body>
-  </html>
-  <script type="module">
-    import { supabase } from './supabase.js'
-  
-    async function loadProfil() {
-      const { data: profil, error } = await supabase
-        .from('profil_desa')
-        .select('*')
-        .eq('id', 1)
-        .single()
-  
-      if (error) {
-        console.log('Gagal load profil:', error)
-        return
-      }
-  
-      if (!profil) return
-  
-      // Ganti Nama + Tagline Utama
-      if (profil.nama) document.getElementById('nama-dusun').innerText = profil.nama
-      if (profil.tagline) document.getElementById('tagline-dusun').innerText = profil.tagline
-  
-      // Ganti Gambar Hero
-      if (profil.image) document.getElementById('hero-image').src = profil.image
-  
-      // Ganti Section Wilayah
-      if (profil.wilayah_judul) document.getElementById('wilayah-judul').innerText = profil.wilayah_judul
-      if (profil.wilayah_rt) document.getElementById('wilayah-rt').innerText = profil.wilayah_rt
-      if (profil.wilayah_deskripsi) document.getElementById('wilayah-deskripsi').innerText = profil.wilayah_deskripsi
-  
-      // Ganti Section UMKM
-      if (profil.umkm_judul) document.getElementById('umkm-judul').innerText = profil.umkm_judul
-      if (profil.umkm_deskripsi) document.getElementById('umkm-deskripsi').innerText = profil.umkm_deskripsi
-      if (profil.umkm_icon) document.getElementById('umkm-icon').className = `fa-solid ${profil.umkm_icon}`
-  
-      // Ganti Foto Warga
-      if (profil.warga_img_1) document.getElementById('warga-img-1').src = profil.warga_img_1
-      if (profil.warga_img_2) document.getElementById('warga-img-2').src = profil.warga_img_2
-      if (profil.warga_img_3) document.getElementById('warga-img-3').src = profil.warga_img_3
-      if (profil.warga_jumlah) document.getElementById('warga-jumlah').innerText = profil.warga_jumlah
-  
-  
-      // Ganti Title Halaman
-      document.title = profil.nama + ' - Profil Dusun'
-    }
-  
-    loadProfil()
-  </script>
-  </body>
+    <script
 
-<!-- Tempat nampilin berita -->
-<section id="berita">
-  <h2>Berita Kegiatan</h2>
-  <div id="listBerita">Loading berita...</div>
-</section>
+  // 1. LOAD PROFIL DESA
+  async function loadProfil() {
+    const { data: profil, error } = await supabase
+      .from('profil_desa')
+      .select('*')
+      .eq('id', 1)
+      .single()
 
-<!-- Tempat nampilin UMKM -->
-<section id="umkm">
-  <h2>UMKM Dusun Salehan</h2>
-  <div id="listUMKM">Loading UMKM...</div>
-</section>
+    if (error) return console.log('Gagal load profil:', error)
+    if (!profil) return
 
-<script type="module">
-  import { supabase } from './js/supabase.js'
+    if (profil.nama) document.getElementById('nama-dusun').innerText = profil.nama
+    if (profil.tagline) document.getElementById('tagline-dusun').innerText = profil.tagline
+    if (profil.image) document.getElementById('hero-image').src = profil.image
+    if (profil.wilayah_judul) document.getElementById('wilayah-judul').innerText = profil.wilayah_judul
+    if (profil.wilayah_rt) document.getElementById('wilayah-rt').innerText = profil.wilayah_rt
+    if (profil.wilayah_deskripsi) document.getElementById('wilayah-deskripsi').innerText = profil.wilayah_deskripsi
+    if (profil.umkm_judul) document.getElementById('umkm-judul').innerText = profil.umkm_judul
+    if (profil.umkm_deskripsi) document.getElementById('umkm-deskripsi').innerText = profil.umkm_deskripsi
+    if (profil.umkm_icon) document.getElementById('umkm-icon').className = `fa-solid ${profil.umkm_icon}`
+    if (profil.warga_img_1) document.getElementById('warga-img-1').src = profil.warga_img_1
+    if (profil.warga_img_2) document.getElementById('warga-img-2').src = profil.warga_img_2
+    if (profil.warga_img_3) document.getElementById('warga-img-3').src = profil.warga_img_3
+    if (profil.warga_jumlah) document.getElementById('warga-jumlah').innerText = profil.warga_jumlah
+    if (profil.peta_judul) document.getElementById('peta-judul').innerText = profil.peta_judul
+    if (profil.peta_deskripsi) document.getElementById('peta-deskripsi').innerText = profil.peta_deskripsi
+    if (profil.peta_link) document.getElementById('peta-link').href = profil.peta_link
+    if (profil.gmaps) document.getElementById('gmaps-iframe').src = profil.gmaps
+    document.title = profil.nama + ' - Profil Dusun'
+  }
 
-  // TAMPILIN BERITA
-  const { data: berita } = await supabase
-    .from('berita')
-    .select('*')
-    .order('tanggal', { ascending: false })
+  // 2. LOAD BERITA
+  async function loadBerita() {
+    const { data: berita, error } = await supabase
+      .from('berita')
+      .select('*')
+      .order('tanggal', { ascending: false })
+    
+    if (error) return document.getElementById('listBerita').innerText = 'Gagal load: ' + error.message
+    
+    document.getElementById('listBerita').innerHTML = berita?.length 
+      ? berita.map(b => `
+        <div style="border:1px solid #ddd; padding:12px; margin:8px 0">
+          <h3>${b.judul}</h3>
+          <p>${b.isi}</p>
+          <small>${new Date(b.tanggal).toLocaleDateString('id-ID')}</small>
+        </div>
+      `).join('') 
+      : 'Belum ada berita'
+  }
 
-  document.getElementById('listBerita').innerHTML = berita?.length 
-    ? berita.map(b => `
-      <div style="border:1px solid #ddd; padding:12px; margin:8px 0">
-        <h3>${b.judul}</h3>
-        <p>${b.isi}</p>
-        <small>${b.tanggal}</small>
-      </div>
-    `).join('') 
-    : 'Belum ada berita'
+  // 3. LOAD UMKM
+  async function loadUMKM() {
+    const { data: umkm, error } = await supabase.from('umkm').select('*')
+    
+    if (error) return document.getElementById('listUMKM').innerText = 'Gagal load: ' + error.message
+    
+    document.getElementById('listUMKM').innerHTML = umkm?.length
+      ? umkm.map(u => `
+        <div style="border:1px solid #ddd; padding:12px; margin:8px 0">
+          <b>${u.nama_usaha}</b> - ${u.pemilik}
+          <p>${u.deskripsi}</p>
+          <a href="https://wa.me/${u.no_wa}" target="_blank">Chat WA</a>
+        </div>
+      `).join('')
+      : 'Belum ada UMKM'
+  }
 
-  // TAMPILIN UMKM
-  const { data: umkm } = await supabase.from('umkm').select('*')
-  
-  document.getElementById('listUMKM').innerHTML = umkm?.length
-    ? umkm.map(u => `
-      <div style="border:1px solid #ddd; padding:12px; margin:8px 0">
-        <b>${u.nama_usaha}</b> - ${u.pemilik}
-        <p>${u.deskripsi}</p>
-        <a href="https://wa.me/${u.no_wa}" target="_blank">Chat WA</a>
-      </div>
-    `).join('')
-    : 'Belum ada UMKM'
+  // JALANIN SEMUA
+  loadProfil()
+  loadBerita()
+  loadUMKM()
 </script>
+</body>
+</html>
 </body>
 </html>
