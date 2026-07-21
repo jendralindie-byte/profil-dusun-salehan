@@ -1,0 +1,1251 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Dusun Salehan</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        salehan: {
+                            50: '#ecfdf5',
+                            100: '#d1fae5',
+                            400: '#34d399',
+                            500: '#10b981',
+                            600: '#059669',
+                            900: '#064e3b',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f3f4f6; }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        /* Transitions */
+        .modal-transition { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        
+        .toast-enter { transform: translateY(100%); opacity: 0; }
+        .toast-enter-active { transform: translateY(0); opacity: 1; transition: all 0.3s ease-out; }
+    
+        
+        /* Active nav item */
+        .nav-active { background-color: #ecfdf5; color: #059669; border-right: 4px solid #10b981; }
+    </style>
+</head>
+<body class="text-gray-800 h-screen overflow-hidden flex">
+
+    <!-- Sidebar -->
+    <aside id="sidebar" class="bg-white w-64 h-full border-r border-gray-200 flex flex-col absolute md:relative z-20 transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out shadow-xl md:shadow-none">
+        <div class="h-16 flex items-center px-6 border-b border-gray-100 justify-between">
+            <div class="flex items-center gap-2 text-salehan-600">
+                <i class="fa-solid fa-leaf text-xl"></i>
+                <span class="font-heading font-bold text-lg tracking-tight">Admin<span class="text-gray-900">Salehan</span></span>
+            </div>
+            <button id="close-sidebar" class="md:hidden text-gray-500 hover:text-gray-800">
+                <i class="fa-solid fa-times text-lg"></i>
+            </button>
+        </div>
+
+        <nav class="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
+            <a href="#" onclick="switchTab('dashboard')" id="nav-dashboard" class="nav-item nav-active flex items-center gap-3 px-4 py-3 rounded-xl font-medium text-sm transition-colors hover:bg-gray-50 text-gray-600">
+                <i class="fa-solid fa-chart-pie w-5"></i> Dashboard
+            </a>
+            <a href="#" onclick="switchTab('profil')" id="nav-profil" class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl font-medium text-sm transition-colors hover:bg-gray-50 text-gray-600">
+                <i class="fa-solid fa-building w-5"></i> Profil Desa
+            </a>
+            <a href="#" onclick="switchTab('berita')" id="nav-berita" class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl font-medium text-sm transition-colors hover:bg-gray-50 text-gray-600">
+                <i class="fa-regular fa-newspaper w-5"></i> Berita & Kegiatan
+            </a>
+            <a href="#" onclick="switchTab('umkm')" id="nav-umkm" class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl font-medium text-sm transition-colors hover:bg-gray-50 text-gray-600">
+                <i class="fa-solid fa-shop w-5"></i> Direktori UMKM
+            </a>
+        </nav>
+
+        <div class="p-4 border-t border-gray-100">
+            <div class="flex items-center gap-3 px-4 py-2">
+                <div class="w-8 h-8 rounded-full bg-salehan-100 text-salehan-600 flex items-center justify-center font-bold text-sm">
+                    A
+                </div>
+                <div>
+                    <p class="text-sm font-bold text-gray-900">Admin Desa</p>
+                    <p class="text-xs text-gray-500">Super Administrator</p>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col h-full relative overflow-hidden bg-gray-50/50">
+        <!-- Header -->
+        <header class="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-4 sm:px-6 z-10">
+            <div class="flex items-center gap-4">
+                <button id="open-sidebar" class="md:hidden text-gray-500 hover:text-gray-900 focus:outline-none">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+                <h1 id="page-title" class="font-heading font-bold text-xl text-gray-800">Dashboard Utama</h1>
+            </div>
+            <div>
+                <button onclick="showToast('Sistem tersinkronisasi', 'success')" class="text-gray-400 hover:text-salehan-500 transition-colors">
+                    <i class="fa-solid fa-arrows-rotate"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Scrollable Content Area -->
+        <div class="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8" id="content-area">
+            
+            <!-- TAB: DASHBOARD -->
+            <section id="tab-dashboard" class="space-y-6">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex items-center gap-4">
+                        <div class="w-14 h-14 rounded-full bg-blue-50 text-blue-500 flex items-center justify-center text-2xl"><i class="fa-solid fa-users"></i></div>
+                        <div>
+                            <p class="text-sm font-medium text-gray-500 mb-1">Total UMKM</p>
+                            <h3 class="text-2xl font-bold text-gray-900" id="stat-umkm">0</h3>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex items-center gap-4">
+                        <div class="w-14 h-14 rounded-full bg-salehan-50 text-salehan-500 flex items-center justify-center text-2xl"><i class="fa-regular fa-newspaper"></i></div>
+                        <div>
+                            <p class="text-sm font-medium text-gray-500 mb-1">Berita Aktif</p>
+                            <h3 class="text-2xl font-bold text-gray-900" id="stat-berita">0</h3>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex items-center gap-4">
+                        <div class="w-14 h-14 rounded-full bg-amber-50 text-amber-500 flex items-center justify-center text-2xl"><i class="fa-solid fa-eye"></i></div>
+                        <div>
+                            <p class="text-sm font-medium text-gray-500 mb-1">Kunjungan Profil</p>
+                            <h3 class="text-2xl font-bold text-gray-900">1,204</h3>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
+                    <h3 class="font-heading font-bold text-lg text-gray-900 mb-4">Selamat datang di Panel Admin</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">Gunakan menu di sebelah kiri untuk mengelola konten website Dusun Salehan. Perubahan yang Anda lakukan di sini akan langsung mengubah tampilan pada website utama yang diakses oleh warga dan publik.</p>
+                </div>
+            </section>
+
+            <!-- TAB: PROFIL DESA -->
+            <!-- Tab Profil Desa -->
+<section id="tab-profil" class="hidden">
+    <div class="bg-white p-6 rounded-2xl border border-gray-100">
+      <h3 class="font-bold text-lg mb-4">Edit Profil Desa</h3>
+      
+      <form onsubmit="handleProfilSubmit(event)" class="space-y-4">
+        <div>
+          <label class="block text-sm font-semibold mb-1">Nama Dusun</label>
+          <input id="prof-nama" type="text" class="w-full border border-gray-200 rounded-xl px-4 py-2">
+        </div>
+  
+        <div>
+          <label class="block text-sm font-semibold mb-1">Tagline</label>
+          <textarea id="prof-tagline" rows="2" class="w-full border border-gray-200 rounded-xl px-4 py-2"></textarea>
+        </div>
+  
+        <div>
+          <label class="block text-sm font-semibold mb-1">Deskripsi Singkat</label>
+          <textarea id="prof-deskripsi" rows="4" class="w-full border border-gray-200 rounded-xl px-4 py-2"></textarea>
+        </div>
+  
+        <div>
+          <label class="block text-sm font-semibold mb-1">Link Google Maps Embed</label>
+          <input id="prof-gmaps" type="text" placeholder="https://www.google.com/maps/embed?pb=..." class="w-full border border-gray-200 rounded-xl px-4 py-2">
+        </div>
+  
+        <div>
+          <label class="block text-sm font-semibold mb-1">URL Gambar Hero</label>
+          <input id="prof-image" type="text" placeholder="https://..." class="w-full border border-gray-200 rounded-xl px-4 py-2">
+          <div class="mt-2">
+            <img id="prof-image-preview" src="" class="w-40 h-24 object-cover rounded-xl hidden">
+            <div id="prof-image-placeholder" class="w-40 h-24 bg-gray-100 rounded-xl flex items-center justify-center text-gray-400">
+              <i class="fa-regular fa-image text-2xl"></i>
+            </div>
+          </div>
+        </div>
+  
+        <button type="submit" class="bg-salehan-500 hover:bg-salehan-600 text-white font-bold px-5 py-2.5 rounded-xl">
+          <i class="fa-solid fa-floppy-disk mr-2"></i> Simpan Profil
+        </button>
+      </form>
+    </div>
+  </section>
+
+            <!-- TAB: BERITA -->
+            <section id="tab-berita" class="hidden space-y-6">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <div>
+                        <p class="text-sm text-gray-500">Kelola artikel, pengumuman, dan kegiatan warga.</p>
+                    </div>
+                    <button onclick="openModalBerita()" class="bg-gray-900 hover:bg-gray-800 text-white font-semibold py-2.5 px-5 rounded-xl shadow-md transition-colors flex items-center text-sm">
+                        <i class="fa-solid fa-plus mr-2"></i> Tambah Berita
+                    </button>
+                </div>
+
+                <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-gray-50 text-gray-500 text-xs uppercase tracking-wider border-b border-gray-200">
+                                    <th class="p-4 font-semibold">Gambar</th>
+                                    <th class="p-4 font-semibold">Judul Berita</th>
+                                    <th class="p-4 font-semibold">Kategori & Tanggal</th>
+                                    <th class="p-4 font-semibold text-right">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="table-body-berita" class="divide-y divide-gray-100">
+                                <!-- Data akan dirender oleh JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- Empty State -->
+                    <div id="empty-berita" class="hidden py-12 text-center text-gray-500">
+                        <i class="fa-regular fa-folder-open text-4xl mb-3 text-gray-300"></i>
+                        <p>Belum ada berita ditambahkan.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB: UMKM -->
+            <section id="tab-umkm" class="hidden space-y-6">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <div>
+                        <p class="text-sm text-gray-500">Kelola direktori UMKM warga RT 04/05.</p>
+                    </div>
+                    <button onclick="openModalUmkm()" class="bg-salehan-500 hover:bg-salehan-600 text-white font-semibold py-2.5 px-5 rounded-xl shadow-md transition-colors flex items-center text-sm">
+                        <i class="fa-solid fa-plus mr-2"></i> Tambah UMKM
+                    </button>
+                </div>
+
+                <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 p-6" id="grid-umkm">
+                        <!-- Data akan dirender oleh JavaScript -->
+                    </div>
+                    <!-- Empty State -->
+                    <div id="empty-umkm" class="hidden py-12 text-center text-gray-500">
+                        <i class="fa-solid fa-shop text-4xl mb-3 text-gray-300"></i>
+                        <p>Belum ada UMKM ditambahkan.</p>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- MODAL: FORM BERITA -->
+    <div id="modal-berita" class="fixed inset-0 z-50 flex items-center justify-center hidden bg-gray-900/50 backdrop-blur-sm modal-transition opacity-0">
+        <div class="bg-white rounded-[2rem] shadow-2xl w-full max-w-2xl max-h-[90vh] flex flex-col transform scale-95 transition-transform duration-300 overflow-hidden m-4" id="modal-berita-content">
+            <div class="px-6 py-4 border-b border-gray-100 flex justify-between items-center bg-gray-50">
+                <h3 class="font-heading font-bold text-lg text-gray-900" id="modal-berita-title">Tambah Berita</h3>
+                <button type="button" onclick="closeModal('modal-berita')" class="text-gray-400 hover:text-gray-800 bg-gray-200/50 hover:bg-gray-200 w-8 h-8 rounded-full flex items-center justify-center transition-colors">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            
+            <form id="form-berita" onsubmit="handleBeritaSubmit(event)" class="overflow-y-auto p-6 space-y-4">
+                <input type="hidden" id="form-berita-id">
+                
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Judul Berita</label>
+                    <input type="text" id="form-berita-judul" class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-salehan-500 focus:border-salehan-500 outline-none transition-all text-sm" required>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Kategori</label>
+                        <input type="text" id="form-berita-kategori" placeholder="Cth: Gotong Royong" class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-salehan-500 focus:border-salehan-500 outline-none transition-all text-sm" required>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Tanggal</label>
+                        <input type="date" id="form-berita-tanggal" class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-salehan-500 focus:border-salehan-500 outline-none transition-all text-sm" required>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">URL Gambar Sampul</label>
+                    <input type="url" id="form-berita-gambar" placeholder="https://..." class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-salehan-500 focus:border-salehan-500 outline-none transition-all text-sm" required>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Isi Konten (HTML Diizinkan)</label>
+                    <textarea id="form-berita-konten" rows="5" placeholder="Tulis paragraf berita di sini..." class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-salehan-500 focus:border-salehan-500 outline-none transition-all text-sm" required></textarea>
+                </div>
+
+                <div class="pt-4 border-t border-gray-100 flex justify-end gap-3">
+                    <button type="button" onclick="closeModal('modal-berita')" class="px-5 py-2.5 rounded-xl text-sm font-semibold text-gray-600 hover:bg-gray-100 transition-colors">Batal</button>
+                    <button type="submit" class="bg-gray-900 hover:bg-gray-800 text-white px-6 py-2.5 rounded-xl text-sm font-semibold shadow-md transition-colors">Simpan Data</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: FORM UMKM -->
+    <div id="modal-umkm" class="fixed inset-0 z-50 flex items-center justify-center hidden bg-gray-900/50 backdrop-blur-sm modal-transition opacity-0">
+        <div class="bg-white rounded-[2rem] shadow-2xl w-full max-w-2xl max-h-[90vh] flex flex-col transform scale-95 transition-transform duration-300 overflow-hidden m-4" id="modal-umkm-content">
+            <div class="px-6 py-4 border-b border-gray-100 flex justify-between items-center bg-gray-50">
+                <h3 class="font-heading font-bold text-lg text-gray-900" id="modal-umkm-title">Tambah UMKM</h3>
+                <button type="button" onclick="closeModal('modal-umkm')" class="text-gray-400 hover:text-gray-800 bg-gray-200/50 hover:bg-gray-200 w-8 h-8 rounded-full flex items-center justify-center transition-colors">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            
+            <form id="form-umkm" onsubmit="handleUmkmSubmit(event)" class="overflow-y-auto p-6 space-y-4">
+                <input type="hidden" id="form-umkm-id">
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Nama Usaha</label>
+                        <input type="text" id="form-umkm-nama" class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-salehan-500 focus:border-salehan-500 outline-none transition-all text-sm" required>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Kategori (Label Warna)</label>
+                        <select id="form-umkm-kategori" class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-salehan-500 focus:border-salehan-500 outline-none transition-all text-sm" required>
+                            <option value="Kuliner|bg-salehan-500">Kuliner (Hijau)</option>
+                            <option value="Kriya|bg-amber-500">Kriya (Kuning)</option>
+                            <option value="Toko|bg-blue-500">Toko Kelontong (Biru)</option>
+                            <option value="Camilan|bg-pink-500">Camilan (Pink)</option>
+                            <option value="Jasa|bg-purple-500">Jasa (Ungu)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">URL Foto Produk/Usaha</label>
+                    <input type="url" id="form-umkm-gambar" placeholder="https://..." class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-salehan-500 focus:border-salehan-500 outline-none transition-all text-sm" required>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Deskripsi Singkat</label>
+                    <textarea id="form-umkm-deskripsi" rows="2" placeholder="Jelaskan produk yang dijual..." class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-salehan-500 focus:border-salehan-500 outline-none transition-all text-sm" required></textarea>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">No. WhatsApp (Awalan 62)</label>
+                        <input type="text" id="form-umkm-wa" placeholder="628123456789" class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-salehan-500 focus:border-salehan-500 outline-none transition-all text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Link Google Maps</label>
+                        <input type="url" id="form-umkm-maps" placeholder="https://maps.app.goo.gl/..." class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-salehan-500 focus:border-salehan-500 outline-none transition-all text-sm">
+                    </div>
+                </div>
+
+                <div class="pt-4 border-t border-gray-100 flex justify-end gap-3">
+                    <button type="button" onclick="closeModal('modal-umkm')" class="px-5 py-2.5 rounded-xl text-sm font-semibold text-gray-600 hover:bg-gray-100 transition-colors">Batal</button>
+                    <button type="submit" class="bg-salehan-500 hover:bg-salehan-600 text-white px-6 py-2.5 rounded-xl text-sm font-semibold shadow-md transition-colors">Simpan Data</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: CONFIRM DELETE -->
+    <div id="modal-confirm" class="fixed inset-0 z-[60] flex items-center justify-center hidden bg-gray-900/40 backdrop-blur-sm modal-transition opacity-0">
+        <div class="bg-white rounded-[2rem] shadow-2xl w-full max-w-sm p-6 text-center transform scale-95 transition-transform duration-300 m-4" id="modal-confirm-content">
+            <div class="w-16 h-16 rounded-full bg-red-100 text-red-500 flex items-center justify-center text-3xl mx-auto mb-4">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+            <h3 class="font-heading font-bold text-xl text-gray-900 mb-2">Hapus Data?</h3>
+            <p class="text-gray-500 text-sm mb-6">Tindakan ini tidak dapat dibatalkan. Data akan dihapus secara permanen.</p>
+            
+            <div class="flex justify-center gap-3">
+                <button type="button" onclick="closeModal('modal-confirm')" class="flex-1 px-4 py-2.5 rounded-xl text-sm font-semibold text-gray-700 bg-gray-100 hover:bg-gray-200 transition-colors">Batal</button>
+                <button type="button" id="btn-confirm-delete" class="flex-1 px-4 py-2.5 rounded-xl text-sm font-semibold text-white bg-red-500 hover:bg-red-600 transition-colors shadow-md">Ya, Hapus</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION -->
+    <div id="toast-container" class="fixed bottom-6 right-6 z-[70] flex flex-col gap-2"></div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script 
+      
+        // --- NAVIGATION ---
+        window.switchTab = (tabId) => {
+          document.querySelectorAll('main > div > section').forEach(sec => sec.classList.add('hidden'))
+          document.querySelectorAll('.nav-item').forEach(nav => {
+            nav.classList.remove('nav-active')
+            nav.classList.add('text-gray-600')
+          })
+          document.getElementById('tab-' + tabId).classList.remove('hidden')
+          document.getElementById('nav-' + tabId).classList.add('nav-active')
+          document.getElementById('nav-' + tabId).classList.remove('text-gray-600')
+          const titles = { 'dashboard': 'Dashboard Utama', 'profil': 'Pengaturan Profil Desa', 'berita': 'Kelola Berita & Kegiatan', 'umkm': 'Direktori UMKM Warga' }
+          document.getElementById('page-title').innerText = titles[tabId]
+          if(window.innerWidth < 768) document.getElementById('sidebar').classList.add('-translate-x-full')
+        }
+      
+        document.getElementById('open-sidebar').addEventListener('click', () => document.getElementById('sidebar').classList.remove('-translate-x-full'))
+        document.getElementById('close-sidebar').addEventListener('click', () => document.getElementById('sidebar').classList.add('-translate-x-full'))
+      
+        // --- UI HELPERS ---
+        window.showToast = (message, type = 'success') => {
+          const container = document.getElementById('toast-container')
+          const toast = document.createElement('div')
+          const colors = type === 'success'? 'bg-gray-900 text-white' : 'bg-red-500 text-white'
+          const icon = type === 'success'? 'fa-check-circle text-salehan-400' : 'fa-circle-xmark'
+          toast.className = `flex items-center gap-3 px-5 py-3 rounded-2xl shadow-xl toast-enter ${colors}`
+          toast.innerHTML = `<i class="fa-solid ${icon} text-lg"></i> <span class="font-medium text-sm">${message}</span>`
+          container.appendChild(toast)
+          setTimeout(() => toast.classList.add('toast-enter-active'), 10)
+          setTimeout(() => { toast.classList.remove('toast-enter-active'); setTimeout(() => toast.remove(), 300) }, 3000)
+        }
+      
+        window.openModal = (modalId) => {
+          const modal = document.getElementById(modalId)
+          modal.classList.remove('hidden')
+          setTimeout(() => { modal.classList.remove('opacity-0'); modal.firstElementChild.classList.remove('scale-95'); modal.firstElementChild.classList.add('scale-100') }, 10)
+        }
+      
+        window.closeModal = (modalId) => {
+          const modal = document.getElementById(modalId)
+          modal.classList.add('opacity-0')
+          modal.firstElementChild.classList.remove('scale-100')
+          modal.firstElementChild.classList.add('scale-95')
+          setTimeout(() => modal.classList.add('hidden'), 300)
+        }
+      
+        // --- PROFIL ---
+        async function loadProfilData() {
+          let { data } = await supabase.from('profil_desa').select('*').eq('id', 1).single()
+          if(data) {
+            document.getElementById('prof-nama').value = data.nama || ''
+            document.getElementById('prof-tagline').value = data.tagline || ''
+            document.getElementById('prof-deskripsi').value = data.deskripsi || ''
+            document.getElementById('prof-gmaps').value = data.gmaps || ''
+            document.getElementById('prof-image').value = data.image || ''
+            if(data.image) {
+              document.getElementById('prof-image-preview').src = data.image
+              document.getElementById('prof-image-preview').classList.remove('hidden')
+              document.getElementById('prof-image-placeholder').classList.add('hidden')
+            }
+          }
+        }
+      
+        document.getElementById('prof-image').addEventListener('input', (e) => {
+          const img = document.getElementById('prof-image-preview')
+          const placeholder = document.getElementById('prof-image-placeholder')
+          if(e.target.value) {
+            img.src = e.target.value
+            img.classList.remove('hidden')
+            placeholder.classList.add('hidden')
+          } else {
+            img.classList.add('hidden')
+            placeholder.classList.remove('hidden')
+          }
+        })
+      
+        window.handleProfilSubmit = async (e) => {
+          e.preventDefault()
+          await supabase.from('profil_desa').update({
+            nama: document.getElementById('prof-nama').value,
+            tagline: document.getElementById('prof-tagline').value,
+            deskripsi: document.getElementById('prof-deskripsi').value,
+            gmaps: document.getElementById('prof-gmaps').value,
+            image: document.getElementById('prof-image').value
+          }).eq('id', 1)
+          showToast('Profil berhasil disimpan!')
+        }
+      
+        // --- BERITA ---
+        async function renderBerita() {
+          let { data } = await supabase.from('berita').select('*').order('tanggal', { ascending: false })
+          const tbody = document.getElementById('table-body-berita')
+          const emptyState = document.getElementById('empty-berita')
+          tbody.innerHTML = ''
+          if (!data || data.length === 0) {
+            emptyState.classList.remove('hidden')
+            return
+          }
+          emptyState.classList.add('hidden')
+          data.forEach(item => {
+            tbody.innerHTML += `
+              <tr class="hover:bg-gray-50 transition-colors">
+                <td class="p-4 w-24"><img src="${item.gambar}" class="w-16 h-16 rounded-xl object-cover border border-gray-100" onerror="this.src='https://placehold.co/100x100/eee/999?text=Error'"></td>
+                <td class="p-4"><p class="font-bold text-gray-900 line-clamp-1">${item.judul}</p><p class="text-xs text-gray-500 mt-1 line-clamp-1">${item.konten}</p></td>
+                <td class="p-4"><span class="inline-block px-2.5 py-1 bg-gray-100 text-gray-600 rounded-lg text-xs font-semibold mb-1">${item.kategori}</span><div class="text-xs text-gray-400"><i class="fa-regular fa-calendar mr-1"></i> ${item.tanggal}</div></td>
+                <td class="p-4 text-right"><div class="flex items-center justify-end gap-2"><button onclick="editBerita(${item.id})" class="w-8 h-8 rounded-lg bg-gray-100 hover:bg-salehan-100 text-gray-600 hover:text-salehan-600 flex items-center justify-center"><i class="fa-solid fa-pen-to-square"></i></button><button onclick="triggerDelete('berita', ${item.id})" class="w-8 h-8 rounded-lg bg-gray-100 hover:bg-red-100 text-gray-600 hover:text-red-500 flex items-center justify-center"><i class="fa-solid fa-trash"></i></button></div></td>
+              </tr>`
+          })
+          updateDashboardStats()
+        }
+      
+        window.openModalBerita = () => {
+          document.getElementById('form-berita').reset()
+          document.getElementById('form-berita-id').value = ''
+          document.getElementById('modal-berita-title').innerText = 'Tambah Berita Baru'
+          openModal('modal-berita')
+        }
+      
+        window.editBerita = async (id) => {
+          let { data: item } = await supabase.from('berita').select('*').eq('id', id).single()
+          if(item) {
+            document.getElementById('form-berita-id').value = item.id
+            document.getElementById('form-berita-judul').value = item.judul
+            document.getElementById('form-berita-kategori').value = item.kategori
+            document.getElementById('form-berita-tanggal').value = item.tanggal
+            document.getElementById('form-berita-gambar').value = item.gambar
+            document.getElementById('form-berita-konten').value = item.konten
+            document.getElementById('modal-berita-title').innerText = 'Edit Berita'
+            openModal('modal-berita')
+          }
+        }
+      
+        window.handleBeritaSubmit = async (e) => {
+          e.preventDefault()
+          const id = document.getElementById('form-berita-id').value
+          const data = {
+            judul: document.getElementById('form-berita-judul').value,
+            kategori: document.getElementById('form-berita-kategori').value,
+            tanggal: document.getElementById('form-berita-tanggal').value,
+            gambar: document.getElementById('form-berita-gambar').value,
+            konten: document.getElementById('form-berita-konten').value
+          }
+          if (id) {
+            await supabase.from('berita').update(data).eq('id', id)
+            showToast('Berita berhasil diperbarui!')
+          } else {
+            await supabase.from('berita').insert(data)
+            showToast('Berita baru berhasil ditambahkan!')
+          }
+          closeModal('modal-berita')
+          renderBerita()
+        }
+      
+        // --- UMKM ---
+        async function renderUmkm() {
+          let { data } = await supabase.from('umkm').select('*').order('id', { ascending: false })
+          const grid = document.getElementById('grid-umkm')
+          const emptyState = document.getElementById('empty-umkm')
+          grid.innerHTML = ''
+          if (!data || data.length === 0) {
+            emptyState.classList.remove('hidden')
+            return
+          }
+          emptyState.classList.add('hidden')
+          data.forEach(item => {
+            const catSplit = item.kategori_lengkap.split('|')
+            const catName = catSplit[0]
+            const catColor = catSplit[1]
+            grid.innerHTML += `
+              <div class="bg-white border border-gray-100 rounded-2xl overflow-hidden hover:shadow-lg transition-shadow group relative flex flex-col">
+                <div class="h-40 overflow-hidden relative">
+                  <img src="${item.gambar}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/400x300/eee/999?text=Image'">
+                  <span class="absolute top-3 right-3 ${catColor} text-white text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded-full shadow-sm">${catName}</span>
+                </div>
+                <div class="p-4 flex-1 flex flex-col">
+                  <h4 class="font-bold text-gray-900 mb-1 text-lg leading-tight line-clamp-1">${item.nama}</h4>
+                  <p class="text-xs text-gray-500 line-clamp-2 mb-4 flex-1">${item.deskripsi}</p>
+                  <div class="flex gap-2 pt-3 border-t border-gray-50">
+                    <button onclick="editUmkm(${item.id})" class="flex-1 py-1.5 rounded-lg bg-gray-100 hover:bg-salehan-100 text-gray-600 hover:text-salehan-600 font-semibold text-xs"><i class="fa-solid fa-pen mr-1"></i> Edit</button>
+                    <button onclick="triggerDelete('umkm', ${item.id})" class="flex-1 py-1.5 rounded-lg bg-gray-100 hover:bg-red-100 text-gray-600 hover:text-red-500 font-semibold text-xs"><i class="fa-solid fa-trash mr-1"></i> Hapus</button>
+                  </div>
+                </div>
+              </div>`
+          })
+          updateDashboardStats()
+        }
+      
+        window.openModalUmkm = () => {
+          document.getElementById('form-umkm').reset()
+          document.getElementById('form-umkm-id').value = ''
+          document.getElementById('modal-umkm-title').innerText = 'Tambah UMKM Baru'
+          openModal('modal-umkm')
+        }
+      
+        window.editUmkm = async (id) => {
+          let { data: item } = await supabase.from('umkm').select('*').eq('id', id).single()
+          if(item) {
+            document.getElementById('form-umkm-id').value = item.id
+            document.getElementById('form-umkm-nama').value = item.nama
+            document.getElementById('form-umkm-kategori').value = item.kategori_lengkap
+            document.getElementById('form-umkm-gambar').value = item.gambar
+            document.getElementById('form-umkm-deskripsi').value = item.deskripsi
+            document.getElementById('form-umkm-wa').value = item.wa || ''
+            document.getElementById('form-umkm-maps').value = item.maps || ''
+            document.getElementById('modal-umkm-title').innerText = 'Edit Data UMKM'
+            openModal('modal-umkm')
+          }
+        }
+      
+        window.handleUmkmSubmit = async (e) => {
+          e.preventDefault()
+          const id = document.getElementById('form-umkm-id').value
+          const data = {
+            nama: document.getElementById('form-umkm-nama').value,
+            kategori_lengkap: document.getElementById('form-umkm-kategori').value,
+            gambar: document.getElementById('form-umkm-gambar').value,
+            deskripsi: document.getElementById('form-umkm-deskripsi').value,
+            wa: document.getElementById('form-umkm-wa').value,
+            maps: document.getElementById('form-umkm-maps').value
+          }
+          if (id) {
+            await supabase.from('umkm').update(data).eq('id', id)
+            showToast('Data UMKM berhasil diperbarui!')
+          } else {
+            await supabase.from('umkm').insert(data)
+            showToast('UMKM baru berhasil ditambahkan!')
+          }
+          closeModal('modal-umkm')
+          renderUmkm()
+        }
+      
+        // --- DELETE ---
+        window.triggerDelete = (type, id) => {
+          pendingDelete = { type, id }
+          openModal('modal-confirm')
+        }
+      
+        document.getElementById('btn-confirm-delete').onclick = async () => {
+          if (pendingDelete.type === 'berita') {
+            await supabase.from('berita').delete().eq('id', pendingDelete.id)
+            renderBerita()
+            showToast('Berita berhasil dihapus', 'success')
+          } else if (pendingDelete.type === 'umkm') {
+            await supabase.from('umkm').delete().eq('id', pendingDelete.id)
+            renderUmkm()
+            showToast('Data UMKM berhasil dihapus', 'success')
+          }
+          closeModal('modal-confirm')
+          pendingDelete = { type: null, id: null }
+        }
+      
+        // --- DASHBOARD STATS ---
+        async function updateDashboardStats() {
+          let { count: umkmCount } = await supabase.from('umkm').select('*', { count: 'exact', head: true })
+          let { count: beritaCount } = await supabase.from('berita').select('*', { count: 'exact', head: true })
+          document.getElementById('stat-umkm').innerText = umkmCount || 0
+          document.getElementById('stat-berita').innerText = beritaCount || 0
+        }
+      
+                    img.classList.add('hidden');
+                    placeholder.classList.remove('hidden');
+            
+        // --- STREAMING_CHUNK:Implementing Navigation logic ---
+        // --- 3. NAVIGATION LOGIC ---
+        function switchTab(tabId) {
+            // Hide all sections
+            document.querySelectorAll('main > div > section').forEach(sec => sec.classList.add('hidden'));
+            // Remove active classes from nav
+            document.querySelectorAll('.nav-item').forEach(nav => {
+                nav.classList.remove('nav-active', 'bg-salehan-50', 'text-salehan-600', 'border-r-4', 'border-salehan-500');
+                nav.classList.add('text-gray-600');
+            });
+
+            // Show selected section
+            document.getElementById('tab-' + tabId).classList.remove('hidden');
+            
+            // Set active class
+            const activeNav = document.getElementById('nav-' + tabId);
+            activeNav.classList.remove('text-gray-600');
+            activeNav.classList.add('nav-active', 'bg-salehan-50', 'text-salehan-600', 'border-r-4', 'border-salehan-500');
+
+            // Update Header Title
+            const titles = {
+                'dashboard': 'Dashboard Utama',
+                'profil': 'Pengaturan Profil Desa',
+                'berita': 'Kelola Berita & Kegiatan',
+                'umkm': 'Direktori UMKM Warga'
+            };
+            document.getElementById('page-title').innerText = titles[tabId];
+
+            // Close mobile sidebar if open
+            if(window.innerWidth < 768) {
+                document.getElementById('sidebar').classList.add('-translate-x-full');
+            }
+        }
+
+        // Mobile Sidebar Toggle
+        document.getElementById('open-sidebar').addEventListener('click', () => {
+            document.getElementById('sidebar').classList.remove('-translate-x-full');
+        });
+        document.getElementById('close-sidebar').addEventListener('click', () => {
+            document.getElementById('sidebar').classList.add('-translate-x-full');
+        });
+
+        // --- STREAMING_CHUNK:Implementing UI Helpers (Modal & Toast) ---
+        // --- 4. UI HELPERS ---
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            
+            const colors = type === 'success' ? 'bg-gray-900 text-white' : 'bg-red-500 text-white';
+            const icon = type === 'success' ? 'fa-check-circle text-salehan-400' : 'fa-circle-xmark';
+
+            toast.className = `flex items-center gap-3 px-5 py-3 rounded-2xl shadow-xl toast-enter ${colors}`;
+            toast.innerHTML = `<i class="fa-solid ${icon} text-lg"></i> <span class="font-medium text-sm">${message}</span>`;
+            
+            container.appendChild(toast);
+            
+            // Animate In
+            setTimeout(() => toast.classList.add('toast-enter-active'), 10);
+            
+            // Animate Out & Remove
+            setTimeout(() => {
+                toast.classList.remove('toast-enter-active');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            const content = document.getElementById(modalId + '-content');
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                content.classList.remove('scale-95');
+                content.classList.add('scale-100');
+            }, 10);
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            const content = document.getElementById(modalId + '-content');
+            modal.classList.add('opacity-0');
+            content.classList.remove('scale-100');
+            content.classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        function updateDashboardStats() {
+            document.getElementById('stat-umkm').innerText = db.umkm.length;
+            document.getElementById('stat-berita').innerText = db.berita.length;
+        }
+
+        // --- STREAMING_CHUNK:Implementing Profil Management Logic ---
+        // --- 5. PROFIL LOGIC ---
+        function loadProfilData() {
+            document.getElementById('prof-nama').value = db.profil.nama;
+            document.getElementById('prof-tagline').value = db.profil.tagline;
+            document.getElementById('prof-deskripsi').value = db.profil.deskripsi;
+            document.getElementById('prof-gmaps').value = db.profil.gmaps;
+            document.getElementById('prof-image').value = db.profil.image;
+            
+            if(db.profil.image) {
+                const img = document.getElementById('prof-image-preview');
+                img.src = db.profil.image;
+                img.classList.remove('hidden');
+                document.getElementById('prof-image-placeholder').classList.add('hidden');
+            }
+        }
+
+        function handleProfilSubmit(e) {
+            e.preventDefault();
+            db.profil = {
+                nama: document.getElementById('prof-nama').value,
+                tagline: document.getElementById('prof-tagline').value,
+                deskripsi: document.getElementById('prof-deskripsi').value,
+                gmaps: document.getElementById('prof-gmaps').value,
+                image: document.getElementById('prof-image').value
+            };
+            showToast('Profil berhasil disimpan!');
+        }
+
+        // --- STREAMING_CHUNK:Implementing Berita Management Logic ---
+        // --- 6. BERITA LOGIC ---
+        function renderBerita() {
+            const tbody = document.getElementById('table-body-berita');
+            const emptyState = document.getElementById('empty-berita');
+            tbody.innerHTML = '';
+
+            if (db.berita.length === 0) {
+                emptyState.classList.remove('hidden');
+                tbody.parentElement.classList.add('hidden');
+                return;
+            }
+
+            emptyState.classList.add('hidden');
+            tbody.parentElement.classList.remove('hidden');
+
+            db.berita.forEach(item => {
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-gray-50 transition-colors";
+                tr.innerHTML = `
+                    <td class="p-4 w-24">
+                        <img src="${item.gambar}" class="w-16 h-16 rounded-xl object-cover border border-gray-100" onerror="this.src='https://placehold.co/100x100/eee/999?text=Error'">
+                    </td>
+                    <td class="p-4">
+                        <p class="font-bold text-gray-900 line-clamp-1">${item.judul}</p>
+                        <p class="text-xs text-gray-500 mt-1 line-clamp-1">${item.konten}</p>
+                    </td>
+                    <td class="p-4">
+                        <span class="inline-block px-2.5 py-1 bg-gray-100 text-gray-600 rounded-lg text-xs font-semibold mb-1">${item.kategori}</span>
+                        <div class="text-xs text-gray-400"><i class="fa-regular fa-calendar mr-1"></i> ${item.tanggal}</div>
+                    </td>
+                    <td class="p-4 text-right">
+                        <div class="flex items-center justify-end gap-2">
+                            <button onclick="editBerita('${item.id}')" class="w-8 h-8 rounded-lg bg-gray-100 hover:bg-salehan-100 text-gray-600 hover:text-salehan-600 flex items-center justify-center transition-colors"><i class="fa-solid fa-pen-to-square"></i></button>
+                            <button onclick="triggerDelete('berita', '${item.id}')" class="w-8 h-8 rounded-lg bg-gray-100 hover:bg-red-100 text-gray-600 hover:text-red-500 flex items-center justify-center transition-colors"><i class="fa-solid fa-trash"></i></button>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+            updateDashboardStats();
+        }
+
+        function openModalBerita() {
+            document.getElementById('form-berita').reset();
+            document.getElementById('form-berita-id').value = '';
+            document.getElementById('modal-berita-title').innerText = 'Tambah Berita Baru';
+            openModal('modal-berita');
+        }
+
+        function editBerita(id) {
+            const item = db.berita.find(b => b.id === id);
+            if(item) {
+                document.getElementById('form-berita-id').value = item.id;
+                document.getElementById('form-berita-judul').value = item.judul;
+                document.getElementById('form-berita-kategori').value = item.kategori;
+                document.getElementById('form-berita-tanggal').value = item.tanggal;
+                document.getElementById('form-berita-gambar').value = item.gambar;
+                document.getElementById('form-berita-konten').value = item.konten;
+                document.getElementById('modal-berita-title').innerText = 'Edit Berita';
+                openModal('modal-berita');
+            }
+        }
+
+        function handleBeritaSubmit(e) {
+            e.preventDefault();
+            const id = document.getElementById('form-berita-id').value;
+            const newData = {
+                judul: document.getElementById('form-berita-judul').value,
+                kategori: document.getElementById('form-berita-kategori').value,
+                tanggal: document.getElementById('form-berita-tanggal').value,
+                gambar: document.getElementById('form-berita-gambar').value,
+                konten: document.getElementById('form-berita-konten').value
+            };
+
+            if (id) {
+                // Edit
+                const index = db.berita.findIndex(b => b.id === id);
+                if(index !== -1) db.berita[index] = { ...newData, id: id };
+                showToast('Berita berhasil diperbarui!');
+            } else {
+                // Add
+                newData.id = 'b' + Date.now();
+                db.berita.unshift(newData);
+                showToast('Berita baru berhasil ditambahkan!');
+            }
+
+            closeModal('modal-berita');
+            renderBerita();
+        }
+
+        // --- STREAMING_CHUNK:Implementing UMKM Management Logic ---
+        // --- 7. UMKM LOGIC ---
+        function renderUmkm() {
+            const grid = document.getElementById('grid-umkm');
+            const emptyState = document.getElementById('empty-umkm');
+            grid.innerHTML = '';
+
+            if (db.umkm.length === 0) {
+                emptyState.classList.remove('hidden');
+                return;
+            }
+
+            emptyState.classList.add('hidden');
+
+            db.umkm.forEach(item => {
+                const catSplit = item.kategoriLengkap.split('|');
+                const catName = catSplit[0];
+                const catColor = catSplit[1]; // e.g., bg-salehan-500
+
+                const card = document.createElement('div');
+                card.className = "bg-white border border-gray-100 rounded-2xl overflow-hidden hover:shadow-lg transition-shadow group relative flex flex-col";
+                card.innerHTML = `
+                    <div class="h-40 overflow-hidden relative">
+                        <img src="${item.gambar}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/400x300/eee/999?text=Image'">
+                        <span class="absolute top-3 right-3 ${catColor} text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full shadow-sm">${catName}</span>
+                    </div>
+                    <div class="p-4 flex-1 flex flex-col">
+                        <h4 class="font-bold text-gray-900 mb-1 text-lg leading-tight line-clamp-1">${item.nama}</h4>
+                        <p class="text-xs text-gray-500 line-clamp-2 mb-4 flex-1">${item.deskripsi}</p>
+                        
+                        <div class="flex gap-2 pt-3 border-t border-gray-50">
+                            <button onclick="editUmkm('${item.id}')" class="flex-1 py-1.5 rounded-lg bg-gray-100 hover:bg-salehan-100 text-gray-600 hover:text-salehan-600 font-semibold text-xs transition-colors"><i class="fa-solid fa-pen mr-1"></i> Edit</button>
+                            <button onclick="triggerDelete('umkm', '${item.id}')" class="flex-1 py-1.5 rounded-lg bg-gray-100 hover:bg-red-100 text-gray-600 hover:text-red-500 font-semibold text-xs transition-colors"><i class="fa-solid fa-trash mr-1"></i> Hapus</button>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+            updateDashboardStats();
+        }
+
+        function openModalUmkm() {
+            document.getElementById('form-umkm').reset();
+            document.getElementById('form-umkm-id').value = '';
+            document.getElementById('modal-umkm-title').innerText = 'Tambah UMKM Baru';
+            openModal('modal-umkm');
+        }
+
+        function editUmkm(id) {
+            const item = db.umkm.find(u => u.id === id);
+            if(item) {
+                document.getElementById('form-umkm-id').value = item.id;
+                document.getElementById('form-umkm-nama').value = item.nama;
+                document.getElementById('form-umkm-kategori').value = item.kategoriLengkap;
+                document.getElementById('form-umkm-gambar').value = item.gambar;
+                document.getElementById('form-umkm-deskripsi').value = item.deskripsi;
+                document.getElementById('form-umkm-wa').value = item.wa || '';
+                document.getElementById('form-umkm-maps').value = item.maps || '';
+                
+                document.getElementById('modal-umkm-title').innerText = 'Edit Data UMKM';
+                openModal('modal-umkm');
+            }
+        }
+
+        function handleUmkmSubmit(e) {
+            e.preventDefault();
+            const id = document.getElementById('form-umkm-id').value;
+            const newData = {
+                nama: document.getElementById('form-umkm-nama').value,
+                kategoriLengkap: document.getElementById('form-umkm-kategori').value,
+                gambar: document.getElementById('form-umkm-gambar').value,
+                deskripsi: document.getElementById('form-umkm-deskripsi').value,
+                wa: document.getElementById('form-umkm-wa').value,
+                maps: document.getElementById('form-umkm-maps').value
+            };
+
+            if (id) {
+                // Edit
+                const index = db.umkm.findIndex(u => u.id === id);
+                if(index !== -1) db.umkm[index] = { ...newData, id: id };
+                showToast('Data UMKM berhasil diperbarui!');
+            } else {
+                // Add
+                newData.id = 'u' + Date.now();
+                db.umkm.unshift(newData);
+                showToast('UMKM baru berhasil ditambahkan!');
+            }
+
+            closeModal('modal-umkm');
+            renderBerita(); // Just in case stats need update
+            renderUmkm();
+        }
+
+        // --- STREAMING_CHUNK:Implementing Delete Confirmation Logic ---
+        // --- 8. DELETE LOGIC (CUSTOM CONFIRM) ---
+        function triggerDelete(type, id) {
+            pendingDelete = { type, id };
+            openModal('modal-confirm');
+        }
+
+        document.getElementById('btn-confirm-delete').addEventListener('click', () => {
+            if (pendingDelete.type === 'berita') {
+                db.berita = db.berita.filter(b => b.id !== pendingDelete.id);
+                renderBerita();
+                showToast('Berita berhasil dihapus', 'success');
+            } else if (pendingDelete.type === 'umkm') {
+                db.umkm = db.umkm.filter(u => u.id !== pendingDelete.id);
+                renderUmkm();
+                showToast('Data UMKM berhasil dihapus', 'success');
+            }
+            
+            closeModal('modal-confirm');
+            pendingDelete = { type: null, id: null }; // Reset
+        });
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="js/supabase.js"></script>
+    
+    <script src="js/admin.js"></script>
+
+    <script type="module">
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
+      
+        const SUPABASE_URL = 'https://vufymausskugbgnrtinx.supabase.co' // GANTI
+        const SUPABASE_KEY = 'sb_publishable_hbGzKC1A9JcXCMx-nCpZVQ_MT3tJLwT' // GANTI
+        const supabase = createClient(SUPABASE_URL, SUPABASE_KEY)
+        let pendingDelete = { type: null, id: null }
+      
+        // --- NAVIGATION ---
+        window.switchTab = (tabId) => {
+          document.querySelectorAll('main > div > section').forEach(sec => sec.classList.add('hidden'))
+          document.querySelectorAll('.nav-item').forEach(nav => {
+            nav.classList.remove('nav-active')
+            nav.classList.add('text-gray-600')
+          })
+          document.getElementById('tab-' + tabId).classList.remove('hidden')
+          document.getElementById('nav-' + tabId).classList.add('nav-active')
+          document.getElementById('nav-' + tabId).classList.remove('text-gray-600')
+          const titles = { 'dashboard': 'Dashboard Utama', 'profil': 'Pengaturan Profil Desa', 'berita': 'Kelola Berita & Kegiatan', 'umkm': 'Direktori UMKM Warga' }
+          document.getElementById('page-title').innerText = titles[tabId]
+          if(window.innerWidth < 768) document.getElementById('sidebar').classList.add('-translate-x-full')
+        }
+      
+        document.getElementById('open-sidebar').addEventListener('click', () => document.getElementById('sidebar').classList.remove('-translate-x-full'))
+        document.getElementById('close-sidebar').addEventListener('click', () => document.getElementById('sidebar').classList.add('-translate-x-full'))
+      
+        // --- UI HELPERS ---
+        window.showToast = (message, type = 'success') => {
+          const container = document.getElementById('toast-container')
+          const toast = document.createElement('div')
+          const colors = type === 'success'? 'bg-gray-900 text-white' : 'bg-red-500 text-white'
+          const icon = type === 'success'? 'fa-check-circle text-salehan-400' : 'fa-circle-xmark'
+          toast.className = `flex items-center gap-3 px-5 py-3 rounded-2xl shadow-xl toast-enter ${colors}`
+          toast.innerHTML = `<i class="fa-solid ${icon} text-lg"></i> <span class="font-medium text-sm">${message}</span>`
+          container.appendChild(toast)
+          setTimeout(() => toast.classList.add('toast-enter-active'), 10)
+          setTimeout(() => { toast.classList.remove('toast-enter-active'); setTimeout(() => toast.remove(), 300) }, 3000)
+        }
+      
+        window.openModal = (modalId) => {
+          const modal = document.getElementById(modalId)
+          modal.classList.remove('hidden')
+          setTimeout(() => { modal.classList.remove('opacity-0'); modal.firstElementChild.classList.remove('scale-95'); modal.firstElementChild.classList.add('scale-100') }, 10)
+        }
+      
+        window.closeModal = (modalId) => {
+          const modal = document.getElementById(modalId)
+          modal.classList.add('opacity-0')
+          modal.firstElementChild.classList.remove('scale-100')
+          modal.firstElementChild.classList.add('scale-95')
+          setTimeout(() => modal.classList.add('hidden'), 300)
+        }
+      
+        // --- PROFIL ---
+        async function loadProfilData() {
+          let { data } = await supabase.from('profil_desa').select('*').eq('id', 1).single()
+          if(data) {
+            document.getElementById('prof-nama').value = data.nama || ''
+            document.getElementById('prof-tagline').value = data.tagline || ''
+            document.getElementById('prof-deskripsi').value = data.deskripsi || ''
+            document.getElementById('prof-gmaps').value = data.gmaps || ''
+            document.getElementById('prof-image').value = data.image || ''
+            if(data.image) {
+              document.getElementById('prof-image-preview').src = data.image
+              document.getElementById('prof-image-preview').classList.remove('hidden')
+              document.getElementById('prof-image-placeholder').classList.add('hidden')
+            }
+          }
+        }
+      
+        document.getElementById('prof-image').addEventListener('input', (e) => {
+          const img = document.getElementById('prof-image-preview')
+          const placeholder = document.getElementById('prof-image-placeholder')
+          if(e.target.value) {
+            img.src = e.target.value
+            img.classList.remove('hidden')
+            placeholder.classList.add('hidden')
+          } else {
+            img.classList.add('hidden')
+            placeholder.classList.remove('hidden')
+          }
+        })
+      
+        window.handleProfilSubmit = async (e) => {
+          e.preventDefault()
+          await supabase.from('profil_desa').update({
+            nama: document.getElementById('prof-nama').value,
+            tagline: document.getElementById('prof-tagline').value,
+            deskripsi: document.getElementById('prof-deskripsi').value,
+            gmaps: document.getElementById('prof-gmaps').value,
+            image: document.getElementById('prof-image').value
+          }).eq('id', 1)
+          showToast('Profil berhasil disimpan!')
+        }
+      
+        // --- BERITA ---
+        async function renderBerita() {
+          let { data } = await supabase.from('berita').select('*').order('tanggal', { ascending: false })
+          const tbody = document.getElementById('table-body-berita')
+          const emptyState = document.getElementById('empty-berita')
+          tbody.innerHTML = ''
+          if (!data || data.length === 0) {
+            emptyState.classList.remove('hidden')
+            return
+          }
+          emptyState.classList.add('hidden')
+          data.forEach(item => {
+            tbody.innerHTML += `
+              <tr class="hover:bg-gray-50 transition-colors">
+                <td class="p-4 w-24"><img src="${item.gambar}" class="w-16 h-16 rounded-xl object-cover border border-gray-100" onerror="this.src='https://placehold.co/100x100/eee/999?text=Error'"></td>
+                <td class="p-4"><p class="font-bold text-gray-900 line-clamp-1">${item.judul}</p><p class="text-xs text-gray-500 mt-1 line-clamp-1">${item.konten}</p></td>
+                <td class="p-4"><span class="inline-block px-2.5 py-1 bg-gray-100 text-gray-600 rounded-lg text-xs font-semibold mb-1">${item.kategori}</span><div class="text-xs text-gray-400"><i class="fa-regular fa-calendar mr-1"></i> ${item.tanggal}</div></td>
+                <td class="p-4 text-right"><div class="flex items-center justify-end gap-2"><button onclick="editBerita(${item.id})" class="w-8 h-8 rounded-lg bg-gray-100 hover:bg-salehan-100 text-gray-600 hover:text-salehan-600 flex items-center justify-center"><i class="fa-solid fa-pen-to-square"></i></button><button onclick="triggerDelete('berita', ${item.id})" class="w-8 h-8 rounded-lg bg-gray-100 hover:bg-red-100 text-gray-600 hover:text-red-500 flex items-center justify-center"><i class="fa-solid fa-trash"></i></button></div></td>
+              </tr>`
+          })
+          updateDashboardStats()
+        }
+      
+        window.openModalBerita = () => {
+          document.getElementById('form-berita').reset()
+          document.getElementById('form-berita-id').value = ''
+          document.getElementById('modal-berita-title').innerText = 'Tambah Berita Baru'
+          openModal('modal-berita')
+        }
+      
+        window.editBerita = async (id) => {
+          let { data: item } = await supabase.from('berita').select('*').eq('id', id).single()
+          if(item) {
+            document.getElementById('form-berita-id').value = item.id
+            document.getElementById('form-berita-judul').value = item.judul
+            document.getElementById('form-berita-kategori').value = item.kategori
+            document.getElementById('form-berita-tanggal').value = item.tanggal
+            document.getElementById('form-berita-gambar').value = item.gambar
+            document.getElementById('form-berita-konten').value = item.konten
+            document.getElementById('modal-berita-title').innerText = 'Edit Berita'
+            openModal('modal-berita')
+          }
+        }
+      
+        window.handleBeritaSubmit = async (e) => {
+          e.preventDefault()
+          const id = document.getElementById('form-berita-id').value
+          const data = {
+            judul: document.getElementById('form-berita-judul').value,
+            kategori: document.getElementById('form-berita-kategori').value,
+            tanggal: document.getElementById('form-berita-tanggal').value,
+            gambar: document.getElementById('form-berita-gambar').value,
+            konten: document.getElementById('form-berita-konten').value
+          }
+          if (id) {
+            await supabase.from('berita').update(data).eq('id', id)
+            showToast('Berita berhasil diperbarui!')
+          } else {
+            await supabase.from('berita').insert(data)
+            showToast('Berita baru berhasil ditambahkan!')
+          }
+          closeModal('modal-berita')
+          renderBerita()
+        }
+      
+        // --- UMKM ---
+        async function renderUmkm() {
+          let { data } = await supabase.from('umkm').select('*').order('id', { ascending: false })
+          const grid = document.getElementById('grid-umkm')
+          const emptyState = document.getElementById('empty-umkm')
+          grid.innerHTML = ''
+          if (!data || data.length === 0) {
+            emptyState.classList.remove('hidden')
+            return
+          }
+          emptyState.classList.add('hidden')
+          data.forEach(item => {
+            const catSplit = item.kategori_lengkap.split('|')
+            const catName = catSplit[0]
+            const catColor = catSplit[1]
+            grid.innerHTML += `
+              <div class="bg-white border border-gray-100 rounded-2xl overflow-hidden hover:shadow-lg transition-shadow group relative flex flex-col">
+                <div class="h-40 overflow-hidden relative">
+                  <img src="${item.gambar}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/400x300/eee/999?text=Image'">
+                  <span class="absolute top-3 right-3 ${catColor} text-white text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded-full shadow-sm">${catName}</span>
+                </div>
+                <div class="p-4 flex-1 flex flex-col">
+                  <h4 class="font-bold text-gray-900 mb-1 text-lg leading-tight line-clamp-1">${item.nama}</h4>
+                  <p class="text-xs text-gray-500 line-clamp-2 mb-4 flex-1">${item.deskripsi}</p>
+                  <div class="flex gap-2 pt-3 border-t border-gray-50">
+                    <button onclick="editUmkm(${item.id})" class="flex-1 py-1.5 rounded-lg bg-gray-100 hover:bg-salehan-100 text-gray-600 hover:text-salehan-600 font-semibold text-xs"><i class="fa-solid fa-pen mr-1"></i> Edit</button>
+                    <button onclick="triggerDelete('umkm', ${item.id})" class="flex-1 py-1.5 rounded-lg bg-gray-100 hover:bg-red-100 text-gray-600 hover:text-red-500 font-semibold text-xs"><i class="fa-solid fa-trash mr-1"></i> Hapus</button>
+                  </div>
+                </div>
+              </div>`
+          })
+          updateDashboardStats()
+        }
+      
+        window.openModalUmkm = () => {
+          document.getElementById('form-umkm').reset()
+          document.getElementById('form-umkm-id').value = ''
+          document.getElementById('modal-umkm-title').innerText = 'Tambah UMKM Baru'
+          openModal('modal-umkm')
+        }
+      
+        window.editUmkm = async (id) => {
+          let { data: item } = await supabase.from('umkm').select('*').eq('id', id).single()
+          if(item) {
+            document.getElementById('form-umkm-id').value = item.id
+            document.getElementById('form-umkm-nama').value = item.nama
+            document.getElementById('form-umkm-kategori').value = item.kategori_lengkap
+            document.getElementById('form-umkm-gambar').value = item.gambar
+            document.getElementById('form-umkm-deskripsi').value = item.deskripsi
+            document.getElementById('form-umkm-wa').value = item.wa || ''
+            document.getElementById('form-umkm-maps').value = item.maps || ''
+            document.getElementById('modal-umkm-title').innerText = 'Edit Data UMKM'
+            openModal('modal-umkm')
+          }
+        }
+      
+        window.handleUmkmSubmit = async (e) => {
+          e.preventDefault()
+          const id = document.getElementById('form-umkm-id').value
+          const data = {
+            nama: document.getElementById('form-umkm-nama').value,
+            kategori_lengkap: document.getElementById('form-umkm-kategori').value,
+            gambar: document.getElementById('form-umkm-gambar').value,
+            deskripsi: document.getElementById('form-umkm-deskripsi').value,
+            wa: document.getElementById('form-umkm-wa').value,
+            maps: document.getElementById('form-umkm-maps').value
+          }
+          if (id) {
+            await supabase.from('umkm').update(data).eq('id', id)
+            showToast('Data UMKM berhasil diperbarui!')
+          } else {
+            await supabase.from('umkm').insert(data)
+            showToast('UMKM baru berhasil ditambahkan!')
+          }
+          closeModal('modal-umkm')
+          renderUmkm()
+        }
+      
+        // --- DELETE ---
+        window.triggerDelete = (type, id) => {
+          pendingDelete = { type, id }
+          openModal('modal-confirm')
+        }
+      
+        document.getElementById('btn-confirm-delete').onclick = async () => {
+          if (pendingDelete.type === 'berita') {
+            await supabase.from('berita').delete().eq('id', pendingDelete.id)
+            renderBerita()
+            showToast('Berita berhasil dihapus', 'success')
+          } else if (pendingDelete.type === 'umkm') {
+            await supabase.from('umkm').delete().eq('id', pendingDelete.id)
+            renderUmkm()
+            showToast('Data UMKM berhasil dihapus', 'success')
+          }
+          closeModal('modal-confirm')
+          pendingDelete = { type: null, id: null }
+        }
+      
+        // --- DASHBOARD STATS ---
+        async function updateDashboardStats() {
+          let { count: umkmCount } = await supabase.from('umkm').select('*', { count: 'exact', head: true })
+          let { count: beritaCount } = await supabase.from('berita').select('*', { count: 'exact', head: true })
+          document.getElementById('stat-umkm').innerText = umkmCount || 0
+          document.getElementById('stat-berita').innerText = beritaCount || 0
+        }
+      
+        // INIT - LANGSUNG JALAN TANPA window.onload
+        loadProfilData()
+        renderBerita()
+        renderUmkm()
+      </script>
+</body>
+</html>

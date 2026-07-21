@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dusun Salehan - Profil & Direktori UMKM</title>
+    
+    <!-- Mengimpor Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Mengimpor Google Fonts (Inter & Plus Jakarta Sans) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Mengimpor FontAwesome untuk Icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Mengimpor AOS Animation CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- Konfigurasi Tema Tailwind -->
+    <script>
+        tailwind.config = {
+            
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        salehan: {
+                            50: '#ecfdf5',
+                            100: '#d1fae5',
+                            400: '#34d399',
+                            500: '#10b981',
+                            600: '#059669',
+                            900: '#064e3b',
+                            950: '#022c22',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8F9FA; /* Off-white yang sangat modern */
+            overflow-x: hidden;
+        }
+        
+        /* Tekstur Grid Latar Belakang Modern */
+        .bg-grid-pattern {
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+            mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
+        }
+
+        /* Glassmorphism V2 */
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 10px 40px -10px rgba(0,0,0,0.08);
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+
+        /* Animasi Kustom */
+        .bento-card {
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            
+        }
+        .bento-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 30px 60px -15px rgba(16, 185, 129, 0.15);
+        }
+
+        /* Teks Gradien Khusus */
+        .text-glow {
+            text-shadow: 0 0 40px rgba(16, 185, 129, 0.4);
+        }
+    </style>
+</head>
+<body class="text-gray-800 antialiased selection:bg-salehan-500 selection:text-white">
+
+    <!-- Latar Belakang Grid -->
+    <div class="fixed inset-0 bg-grid-pattern pointer-events-none z-[-1]"></div>
+
+    <!-- Navbar Ultra-Modern (Dynamic Island Style) -->
+    <nav class="fixed top-6 left-1/2 transform -translate-x-1/2 w-[90%] max-w-4xl z-50 glass-nav rounded-full transition-all duration-500" data-aos="fade-down" data-aos-duration="1000">
+        <div class="px-4 py-2.5 sm:px-6">
+            <div class="flex justify-between items-center">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center gap-3 cursor-pointer group" onclick="window.scrollTo(0,0)">
+                    <div class="w-9 h-9 bg-gray-900 group-hover:bg-salehan-500 transition-colors duration-500 text-white rounded-full flex items-center justify-center text-sm shadow-md">
+                        <i class="fa-solid fa-leaf"></i>
+                    </div>
+                    <span class="font-heading font-extrabold text-lg text-gray-900 tracking-tight">Salehan.</span>
+                </div>
+                
+                <!-- Menu Desktop -->
+                <div class="hidden md:flex items-center space-x-2 bg-gray-100/50 p-1 rounded-full border border-gray-200/50">
+                    <a href="#profil" class="text-gray-600 hover:text-gray-900 hover:bg-white font-semibold transition-all px-5 py-2 rounded-full text-sm">Profil</a>
+                    <a href="#peta" class="text-gray-600 hover:text-gray-900 hover:bg-white font-semibold transition-all px-5 py-2 rounded-full text-sm">Lokasi</a>
+                    <a href="#berita" class="text-gray-600 hover:text-gray-900 hover:bg-white font-semibold transition-all px-5 py-2 rounded-full text-sm">Berita</a>
+                    <a href="#umkm" class="bg-salehan-500 text-white px-5 py-2 rounded-full font-semibold transition-all shadow-md shadow-salehan-500/30 text-sm hover:bg-salehan-600">Jelajah UMKM</a>
+                </div>
+
+                <!-- Menu Mobile (Burger Icon) -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-gray-900 bg-gray-100 focus:outline-none p-2 rounded-full w-9 h-9 flex items-center justify-center">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden absolute top-full mt-4 left-0 w-full bg-white/95 backdrop-blur-xl rounded-[2rem] shadow-2xl overflow-hidden border border-gray-100 p-3 transform transition-all">
+            <a href="#profil" class="block px-5 py-4 text-sm font-bold text-gray-800 hover:bg-gray-50 rounded-2xl mb-1">Profil Dusun</a>
+            <a href="#peta" class="block px-5 py-4 text-sm font-bold text-gray-800 hover:bg-gray-50 rounded-2xl mb-1">Peta Lokasi</a>
+            <a href="#berita" class="block px-5 py-4 text-sm font-bold text-gray-800 hover:bg-gray-50 rounded-2xl mb-1">Berita & Kegiatan</a>
+            <a href="#umkm" class="block px-5 py-4 text-sm font-bold text-white bg-salehan-500 hover:bg-salehan-600 rounded-2xl text-center mt-2">Jelajahi UMKM</a>
+        </div>
+    </nav>
+
+    <!-- HALAMAN 1: PROFIL DUSUN (BENTO GRID STYLE) -->
+    <section id="profil" class="pt-32 pb-16 lg:pt-40 lg:pb-24 px-4 sm:px-6 lg:px-8 max-w-[85rem] mx-auto">
+        
+        <!-- Grid Bento -->
+        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6" ">
+            
+            <!-- Bento Box 1: Headline Utama (Lebar) -->
+            <div class="md:col-span-2 lg:col-span-3 bg-white rounded-[2.5rem] p-8 md:p-12 border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] bento-card relative overflow-hidden group" data-aos="zoom-in-up">
+                <!-- Dekorasi Latar Kotak -->
+                <div class="absolute -right-20 -top-20 w-64 h-64 bg-salehan-500/10 rounded-full blur-3xl group-hover:bg-salehan-500/20 transition-all duration-700"></div>
+                
+                <div class="relative z-10 h-full flex flex-col justify-between">
+                    <div>
+                        <div class="inline-flex items-center px-4 py-2 bg-gray-900 text-white rounded-full font-bold text-[11px] tracking-widest uppercase mb-8 shadow-md">
+                            <span class="w-1.5 h-1.5 rounded-full bg-salehan-400 mr-2 animate-pulse"></span>
+                            Selamat Datang di
+                        </div>
+                        <h1 class="font-heading text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tighter text-gray-900 leading-[1.05] mb-6">
+                            Dusun <span id="nama-dusun" class="text-transparent bg-clip-text bg-gradient-to-br from-salehan-500 to-teal-400 text-glow">Salehan.</span>
+                        </h1>
+                        <p id="tagline-dusun" class="text-lg md:text-xl text-gray-500 leading-relaxed max-w-2xl font-medium">
+                            Sebuah harmoni antara tradisi guyub rukun dan semangat kemandirian ekonomi. Wilayah asri yang kini bergerak maju melalui inovasi warga.
+                        </p>
+                    </div>
+                    
+                    <div class="mt-10 flex flex-wrap gap-4">
+                        <a href="#umkm" class="inline-flex items-center justify-center bg-gray-900 hover:bg-gray-800 text-white px-8 py-4 rounded-full font-semibold text-sm transition-transform active:scale-95 shadow-lg">
+                            Lihat Potensi UMKM <i class="fa-solid fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bento Box 2: Gambar Vertikal -->
+            <div class="md:col-span-1 lg:col-span-1 bg-gray-200 rounded-[2.5rem] overflow-hidden bento-card relative min-h-[300px]" data-aos="zoom-in-up" data-aos-delay="100">
+                <img id="hero-image" src="https://picsum.photos/seed/village2/600/800" alt="Suasana Dusun" class="absolute inset-0 w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-gray-900/20 to-transparent"></div>
+                <div class="absolute bottom-6 left-6 right-6">
+                    <p class="text-white font-heading font-bold text-xl leading-tight">Kehidupan yang<br>Asri & Damai</p>
+                </div>
+            </div>
+
+            <!-- Bento Box 3: Highlight RT -->
+            <div class="md:col-span-1 bg-salehan-950 rounded-[2.5rem] p-8 text-white bento-card flex flex-col justify-center relative overflow-hidden" data-aos="zoom-in-up" data-aos-delay="200">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-salehan-500 rounded-full filter blur-[50px] opacity-30"></div>
+                <h3 id="wilayah-judul" class="text-salehan-400 font-bold text-sm tracking-widest uppercase mb-2">Wilayah Aktif</h3>
+                <div class="flex items-baseline gap-2">
+                    <span class="font-heading text-6xl font-extrabold tracking-tighter">RT</span>
+                    <span id="wilayah-rt" class="font-heading text-4xl font-bold text-gray-300">04/05</span>
+                </div>
+                <p id="wilayah-deskripsi" class="text-gray-400 text-sm mt-4 font-medium">Menjadi motor utama penggerak ekonomi kreatif desa.</p>
+            </div>
+
+            <!-- Bento Box 4: UMKM Stats -->
+            <div class="md:col-span-2 lg:col-span-3 bg-white rounded-[2.5rem] p-8 border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] bento-card flex items-center justify-between" data-aos="zoom-in-up" data-aos-delay="300">
+                <div class="flex items-center gap-6">
+                    <div class="w-16 h-16 rounded-full bg-salehan-50 text-salehan-500 flex items-center justify-center text-2xl border border-salehan-100">
+                        <i id="umkm-icon" class="fa-solid fa-shop"></i>
+                    </div>
+                    <div>
+                        <h3 id="umkm-judul" class="font-heading font-extrabold text-2xl text-gray-900">Pusat UMKM Lokal</h3>
+                        <p id="umkm-deskripsi" class="text-gray-500 font-medium">Mendukung karya dan usaha warga sekitar.</p>
+                    </div>
+                </div>
+            </div>
+                <!-- Dekorasi Avatar Tumpuk -->
+                <div class="hidden sm:flex -space-x-4">
+                    <img id="warga-img-1" class="w-12 h-12 rounded-full border-4 border-white object-cover" src="https://picsum.photos/seed/face1/100/100" alt="Warga">
+                    <img id="warga-img-2" class="w-12 h-12 rounded-full border-4 border-white object-cover" src="https://picsum.photos/seed/face2/100/100" alt="Warga">
+                    <img id="warga-img-3" class="w-12 h-12 rounded-full border-4 border-white object-cover" src="https://picsum.photos/seed/face3/100/100" alt="Warga">
+                    <div id="warga-jumlah" class="w-12 h-12 rounded-full border-4 border-white bg-gray-100 flex items-center justify-center text-xs font-bold text-gray-600">+9</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HALAMAN PETA DUSUN -->
+    <!-- HALAMAN PETA DUSUN -->
+<section id="peta" class="py-12 relative z-10">
+    <div class="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="bg-white rounded-[3rem] p-4 sm:p-6 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] border border-gray-100/50" data-aos="fade-up" data-aos-duration="1000">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 px-4 sm:px-8 pt-4">
+                <div>
+                    <h2 id="peta-judul" class="font-heading text-4xl font-extrabold text-gray-900 tracking-tight">Titik Lokasi</h2>
+                    <p id="peta-deskripsi" class="text-gray-500 font-medium mt-2">Temukan Dusun Salehan via satelit Google Maps.</p>
+                </div>
+                <a id="peta-link" href="#" target="_blank" class="mt-4 md:mt-0 text-sm font-bold text-salehan-600 hover:text-salehan-700 bg-salehan-50 px-5 py-2.5 rounded-full transition-colors">
+                    Buka di Aplikasi <i class="fa-solid fa-external-link-alt ml-1"></i>
+                </a>
+            </div>
+
+            <!-- IFRAME MAPS DINAMIS - CUMA 1 INI DOANG -->
+            <div class="rounded-[2rem] overflow-hidden">
+                <iframe
+                    id="gmaps-iframe"
+                    src=""
+                    width="100%"
+                    height="450"
+                    style="border:0;"
+                    allowfullscreen=""
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+        </div>
+    </div>
+</section>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- HALAMAN BERITA & KEGIATAN -->
+    <section id="berita" class="pt-24 pb-12 relative z-10">
+        <div class="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Header Seksi Berita -->
+            <div class="mb-12 flex flex-col md:flex-row justify-between items-end gap-6" data-aos="fade-up">
+                <div class="max-w-2xl">
+                    <span class="text-salehan-500 font-bold tracking-widest uppercase text-sm mb-2 block">Kabar Terkini</span>
+                    <h2 class="font-heading text-4xl md:text-5xl font-extrabold text-gray-900 tracking-tight leading-tight">
+                        Berita & Kegiatan<br>Warga.
+                    </h2>
+                </div>
+                <a href="#" class="group hidden md:inline-flex items-center text-sm font-bold text-gray-900 hover:text-salehan-600 transition-colors">
+                    Lihat Semua <i class="fa-solid fa-arrow-right ml-2 transform group-hover:translate-x-1 transition-transform"></i>
+                </a>
+            </div>
+
+            <!-- Grid Berita (Card Style) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Berita 1: Kerja Bakti -->
+                <div onclick="openNews('berita-1')" class="bg-white rounded-[2rem] p-4 border border-gray-100 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.05)] group hover:-translate-y-2 transition-transform duration-500 cursor-pointer" data-aos="fade-up" data-aos-delay="100">
+                    <div class="relative w-full h-56 rounded-[1.5rem] overflow-hidden mb-6">
+                        <img src="https://picsum.photos/seed/kerjabakti/600/400" alt="Kerja Bakti" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                        <div class="absolute top-4 left-4 bg-white/90 backdrop-blur-sm text-gray-900 text-xs font-extrabold px-3 py-1.5 rounded-full shadow-sm">
+                            <i class="fa-regular fa-calendar mr-1 text-salehan-500"></i> 12 Jul 2026
+                        </div>
+                    </div>
+                    <div class="px-2 pb-4">
+                        <div class="text-salehan-500 font-bold text-xs uppercase tracking-wider mb-2">Gotong Royong</div>
+                        <h3 class="font-heading text-xl font-bold text-gray-900 mb-3 leading-snug group-hover:text-salehan-600 transition-colors">Kerja Bakti Rutin Pembersihan Saluran Air</h3>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">Warga bergotong royong membersihkan gorong-gorong dan lingkungan sekitar menyambut musim penghujan demi mencegah banjir.</p>
+                        <span class="text-sm font-semibold text-gray-900 flex items-center">Baca selengkapnya <i class="fa-solid fa-arrow-right text-xs ml-1.5 group-hover:translate-x-1 transition-transform"></i></span>
+                    </div>
+                </div>
+
+                <!-- Berita 2: Lomba 17 Agustus -->
+                <div onclick="openNews('berita-2')" class="bg-white rounded-[2rem] p-4 border border-gray-100 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.05)] group hover:-translate-y-2 transition-transform duration-500 cursor-pointer" data-aos="fade-up" data-aos-delay="200">
+                    <div class="relative w-full h-56 rounded-[1.5rem] overflow-hidden mb-6">
+                        <img src="https://picsum.photos/seed/lomba17/600/400" alt="Lomba 17an" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                        <div class="absolute top-4 left-4 bg-white/90 backdrop-blur-sm text-gray-900 text-xs font-extrabold px-3 py-1.5 rounded-full shadow-sm">
+                            <i class="fa-regular fa-calendar mr-1 text-salehan-500"></i> 17 Agu 2026
+                        </div>
+                    </div>
+                    <div class="px-2 pb-4">
+                        <div class="text-red-500 font-bold text-xs uppercase tracking-wider mb-2">HUT Kemerdekaan RI</div>
+                        <h3 class="font-heading text-xl font-bold text-gray-900 mb-3 leading-snug group-hover:text-salehan-600 transition-colors">Semarak Lomba 17 Agustus di Lapangan Dusun</h3>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">Kemeriahan perayaan kemerdekaan dengan berbagai lomba seru yang diikuti anak-anak hingga dewasa, mulai dari panjat pinang hingga tarik tambang.</p>
+                        <span class="text-sm font-semibold text-gray-900 flex items-center">Baca selengkapnya <i class="fa-solid fa-arrow-right text-xs ml-1.5 group-hover:translate-x-1 transition-transform"></i></span>
+                    </div>
+                </div>
+
+                <!-- Berita 3: Rapat Pemuda -->
+                <div onclick="openNews('berita-3')" class="bg-white rounded-[2rem] p-4 border border-gray-100 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.05)] group hover:-translate-y-2 transition-transform duration-500 cursor-pointer" data-aos="fade-up" data-aos-delay="300">
+                    <div class="relative w-full h-56 rounded-[1.5rem] overflow-hidden mb-6">
+                        <img src="https://picsum.photos/seed/karangtaruna/600/400" alt="Rapat Pemuda" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                        <div class="absolute top-4 left-4 bg-white/90 backdrop-blur-sm text-gray-900 text-xs font-extrabold px-3 py-1.5 rounded-full shadow-sm">
+                            <i class="fa-regular fa-calendar mr-1 text-salehan-500"></i> 05 Agu 2026
+                        </div>
+                    </div>
+                    <div class="px-2 pb-4">
+                        <div class="text-blue-500 font-bold text-xs uppercase tracking-wider mb-2">Karang Taruna</div>
+                        <h3 class="font-heading text-xl font-bold text-gray-900 mb-3 leading-snug group-hover:text-salehan-600 transition-colors">Rapat Karang Taruna Bahas Inovasi Digital UMKM</h3>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">Pemuda-pemudi desa menggelar rapat rutin untuk merencanakan pendampingan pemasaran online bagi pelaku UMKM di Dusun Salehan.</p>
+                        <span class="text-sm font-semibold text-gray-900 flex items-center">Baca selengkapnya <i class="fa-solid fa-arrow-right text-xs ml-1.5 group-hover:translate-x-1 transition-transform"></i></span>
+                    </div>
+                </div>
+
+            </div>
+            
+            <!-- Tombol Mobile View -->
+            <div class="mt-8 text-center md:hidden" data-aos="fade-up">
+                <a href="#" class="inline-flex items-center justify-center bg-gray-100 text-sm font-bold text-gray-900 hover:bg-gray-200 py-3 px-6 rounded-full transition-colors w-full">
+                    Lihat Semua Berita <i class="fa-solid fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- HALAMAN UMKM -->
+    <section id="umkm" class="pt-16 pb-24 relative z-10 bg-white rounded-t-[3rem] mt-12 shadow-[0_-20px_60px_-15px_rgba(0,0,0,0.05)] border-t border-gray-100/50">
+        <div class="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Header UMKM -->
+            <div class="mb-12 flex flex-col md:flex-row justify-between items-end gap-6" data-aos="fade-up">
+                <div class="max-w-2xl">
+                    <span class="text-salehan-500 font-bold tracking-widest uppercase text-sm mb-2 block">Potensi Desa</span>
+                    <h2 class="font-heading text-4xl md:text-5xl font-extrabold text-gray-900 tracking-tight leading-tight">
+                        Jelajah UMKM<br>Warga RT 04 & 05.
+                    </h2>
+                </div>
+                <p class="text-gray-500 font-medium max-w-sm md:text-right text-sm">
+                    Dukung kemandirian ekonomi desa dengan bangga membeli produk lokal karya tetangga kita sendiri.
+                </p>
+            </div>
+
+            <!-- Grid UMKM (Hover Reveal Style) -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                
+                <!-- UMKM 1 -->
+                <div class="group relative h-96 rounded-[2rem] overflow-hidden cursor-pointer shadow-lg" data-aos="fade-up" data-aos-delay="100">
+                    <img src="https://picsum.photos/seed/umkm1/600/800" alt="Warung Bu Tejo" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <!-- Gradient Overlay (Darkens on Hover) -->
+                    <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40 to-transparent opacity-80 group-hover:opacity-95 transition-opacity duration-300"></div>
+                    
+                    <!-- Konten UMKM -->
+                    <div class="absolute inset-0 p-6 flex flex-col justify-end">
+                        <div class="transform translate-y-8 group-hover:translate-y-0 transition-transform duration-500 ease-out">
+                            <span class="bg-salehan-500 text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full mb-3 inline-block shadow-md">Kuliner</span>
+                            <h3 class="font-heading text-2xl font-bold text-white mb-1">Warung Makan Bu Tejo</h3>
+                            <!-- Deskripsi & Tombol (Muncul saat Hover) -->
+                            <div class="opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+                                <p class="text-gray-300 text-sm mb-5 leading-relaxed">Menyediakan soto ayam, pecel lele, dan aneka penyetan segar.</p>
+                                
+                                <!-- Tombol Kontak -->
+                                <div class="flex gap-2">
+                                    <a href="https://wa.me/6281234567890" target="_blank" class="flex-1 bg-[#25D366] hover:bg-[#20bd5a] text-white text-center py-2.5 rounded-xl font-bold text-sm transition-transform active:scale-95 flex items-center justify-center gap-2 shadow-lg shadow-[#25D366]/30">
+                                        <i class="fa-brands fa-whatsapp text-lg"></i> Pesan WA
+                                    </a>
+                                    <a href="#" title="Buka di Maps" class="w-12 bg-white/20 hover:bg-white/30 backdrop-blur-md text-white flex items-center justify-center rounded-xl transition-all active:scale-95 border border-white/30">
+                                        <i class="fa-solid fa-location-dot"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- UMKM 2 -->
+                <div class="group relative h-96 rounded-[2rem] overflow-hidden cursor-pointer shadow-lg" data-aos="fade-up" data-aos-delay="200">
+                    <img src="https://picsum.photos/seed/umkm2/600/800" alt="Kerajinan Bambu" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40 to-transparent opacity-80 group-hover:opacity-95 transition-opacity duration-300"></div>
+                    
+                    <div class="absolute inset-0 p-6 flex flex-col justify-end">
+                        <div class="transform translate-y-8 group-hover:translate-y-0 transition-transform duration-500 ease-out">
+                            <span class="bg-amber-500 text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full mb-3 inline-block shadow-md">Kriya</span>
+                            <h3 class="font-heading text-2xl font-bold text-white mb-1">Bambu Lestari</h3>
+                            
+                            <div class="opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+                                <p class="text-gray-300 text-sm mb-5 leading-relaxed">Kerajinan anyaman bambu untuk dekorasi rumah dan alat dapur.</p>
+                                
+                                <div class="flex gap-2">
+                                    <a href="https://wa.me/6281234567890" target="_blank" class="flex-1 bg-[#25D366] hover:bg-[#20bd5a] text-white text-center py-2.5 rounded-xl font-bold text-sm transition-transform active:scale-95 flex items-center justify-center gap-2 shadow-lg shadow-[#25D366]/30">
+                                        <i class="fa-brands fa-whatsapp text-lg"></i> Pesan WA
+                                    </a>
+                                    <a href="#" title="Buka di Maps" class="w-12 bg-white/20 hover:bg-white/30 backdrop-blur-md text-white flex items-center justify-center rounded-xl transition-all active:scale-95 border border-white/30">
+                                        <i class="fa-solid fa-location-dot"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- UMKM 3 -->
+                <div class="group relative h-96 rounded-[2rem] overflow-hidden cursor-pointer shadow-lg" data-aos="fade-up" data-aos-delay="300">
+                    <img src="https://picsum.photos/seed/umkm3/600/800" alt="Toko Makmur" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40 to-transparent opacity-80 group-hover:opacity-95 transition-opacity duration-300"></div>
+                    
+                    <div class="absolute inset-0 p-6 flex flex-col justify-end">
+                        <div class="transform translate-y-8 group-hover:translate-y-0 transition-transform duration-500 ease-out">
+                            <span class="bg-blue-500 text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full mb-3 inline-block shadow-md">Toko</span>
+                            <h3 class="font-heading text-2xl font-bold text-white mb-1">Toko Makmur Jaya</h3>
+                            
+                            <div class="opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+                                <p class="text-gray-300 text-sm mb-5 leading-relaxed">Sedia kebutuhan pokok, sembako, minyak, dan gas LPG 3kg.</p>
+                                
+                                <div class="flex gap-2">
+                                    <a href="https://wa.me/6281234567890" target="_blank" class="flex-1 bg-[#25D366] hover:bg-[#20bd5a] text-white text-center py-2.5 rounded-xl font-bold text-sm transition-transform active:scale-95 flex items-center justify-center gap-2 shadow-lg shadow-[#25D366]/30">
+                                        <i class="fa-brands fa-whatsapp text-lg"></i> Hubungi
+                                    </a>
+                                    <a href="#" title="Buka di Maps" class="w-12 bg-white/20 hover:bg-white/30 backdrop-blur-md text-white flex items-center justify-center rounded-xl transition-all active:scale-95 border border-white/30">
+                                        <i class="fa-solid fa-location-dot"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- UMKM 4 -->
+                <div class="group relative h-96 rounded-[2rem] overflow-hidden cursor-pointer shadow-lg" data-aos="fade-up" data-aos-delay="400">
+                    <img src="https://picsum.photos/seed/umkm4/600/800" alt="Jajanan Pasar" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40 to-transparent opacity-80 group-hover:opacity-95 transition-opacity duration-300"></div>
+                    
+                    <div class="absolute inset-0 p-6 flex flex-col justify-end">
+                        <div class="transform translate-y-8 group-hover:translate-y-0 transition-transform duration-500 ease-out">
+                            <span class="bg-pink-500 text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full mb-3 inline-block shadow-md">Camilan</span>
+                            <h3 class="font-heading text-2xl font-bold text-white mb-1">Jajanan Mbak Nur</h3>
+                            
+                            <div class="opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+                                <p class="text-gray-300 text-sm mb-5 leading-relaxed">Menerima pesanan lemper, pastel, dan snack box untuk arisan.</p>
+                                
+                                <div class="flex gap-2">
+                                    <a href="https://wa.me/6281234567890" target="_blank" class="flex-1 bg-[#25D366] hover:bg-[#20bd5a] text-white text-center py-2.5 rounded-xl font-bold text-sm transition-transform active:scale-95 flex items-center justify-center gap-2 shadow-lg shadow-[#25D366]/30">
+                                        <i class="fa-brands fa-whatsapp text-lg"></i> Pesan WA
+                                    </a>
+                                    <a href="#" title="Buka di Maps" class="w-12 bg-white/20 hover:bg-white/30 backdrop-blur-md text-white flex items-center justify-center rounded-xl transition-all active:scale-95 border border-white/30">
+                                        <i class="fa-solid fa-location-dot"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- HALAMAN DETAIL BERITA (OVERLAY MULTIPAGE) -->
+    <div id="news-detail-overlay" class="fixed inset-0 bg-white z-[100] transform translate-x-full transition-transform duration-700 ease-in-out overflow-y-auto">
+        <!-- Tombol Kembali (Sticky) -->
+        <div class="sticky top-0 z-[110] bg-white/80 backdrop-blur-xl border-b border-gray-100 px-4 py-4 md:px-8 md:py-6 flex justify-between items-center shadow-sm">
+            <button onclick="closeNews()" class="group flex items-center gap-2 text-gray-900 font-bold hover:text-salehan-600 transition-colors bg-gray-100 hover:bg-gray-200 px-5 py-2.5 rounded-full text-sm">
+                <i class="fa-solid fa-arrow-left transform group-hover:-translate-x-1 transition-transform"></i> Kembali
+            </button>
+            <span class="font-heading font-extrabold text-lg text-gray-900 tracking-tight">Salehan<span class="text-salehan-500">.</span> Berita</span>
+        </div>
+
+        <!-- Konten Detail Artikel -->
+        <article class="max-w-3xl mx-auto px-4 sm:px-6 py-8 md:py-12 pb-24">
+            <!-- Header Detail -->
+            <div class="mb-8">
+                <div class="flex items-center gap-3 mb-4">
+                    <span id="detail-category" class="text-salehan-600 font-extrabold text-xs uppercase tracking-widest bg-salehan-50 px-3 py-1.5 rounded-full border border-salehan-100">Kategori</span>
+                    <span id="detail-date" class="text-gray-500 text-sm font-semibold flex items-center"><i class="fa-regular fa-calendar mr-2"></i> Tanggal</span>
+                </div>
+                <h1 id="detail-title" class="font-heading text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-900 leading-[1.1] mb-6 tracking-tight">
+                    Judul Berita
+                </h1>
+            </div>
+
+            <!-- Gambar Utama -->
+            <div class="w-full h-[250px] md:h-[450px] rounded-[2rem] overflow-hidden mb-10 shadow-lg">
+                <img id="detail-image" src="" alt="Cover Berita" class="w-full h-full object-cover">
+            </div>
+
+            <!-- Isi Artikel (Body) -->
+            <div id="detail-body" class="text-gray-600 text-base md:text-lg leading-relaxed space-y-6">
+                <!-- Konten dinamis akan dimuat menggunakan JavaScript -->
+            </div>
+            
+            <!-- Share & Footer Artikel -->
+            <div class="mt-16 pt-8 border-t border-gray-100 flex items-center justify-between">
+                <div class="flex items-center gap-4">
+                    <span class="font-bold text-gray-900 text-sm hidden sm:block">Bagikan artikel:</span>
+                    <button onclick="copyLink(event)" class="w-10 h-10 rounded-full bg-gray-100 hover:bg-salehan-50 text-gray-600 hover:text-salehan-600 flex items-center justify-center transition-colors" title="Salin Link">
+                        <i class="fa-solid fa-link"></i>
+                    </button>
+                    <a href="#" class="w-10 h-10 rounded-full bg-[#25D366]/10 hover:bg-[#25D366]/20 text-[#25D366] flex items-center justify-center transition-colors" title="Bagikan ke WhatsApp">
+                        <i class="fa-brands fa-whatsapp text-lg"></i>
+                    </a>
+                </div>
+                <div class="text-sm font-medium text-gray-400">
+                    Penulis: Admin RT 04/05
+                </div>
+            </div>
+        </article>
+    </div>
+
+    <!-- FOOTER MINIMALIS -->
+    <footer class="bg-white border-t border-gray-100 py-10">
+        <div class="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <!-- Logo Footer -->
+                <div class="flex items-center gap-2">
+                    <span class="font-heading font-extrabold text-xl text-gray-900 tracking-tight">Salehan.</span>
+                </div>
+                
+                <!-- Hak Cipta -->
+                <p class="text-sm font-medium text-gray-400 text-center">
+                    &copy; 2026 Dusun Salehan (RT 04/05). Dirancang untuk warga.
+                </p>
+                
+                <!-- Navigasi Footer -->
+                <div class="flex gap-6 text-sm font-semibold">
+                    <a href="#profil" class="text-gray-400 hover:text-gray-900 transition-colors">Profil</a>
+                    <a href="#berita" class="text-gray-400 hover:text-gray-900 transition-colors">Berita</a>
+                    <a href="#umkm" class="text-gray-400 hover:text-gray-900 transition-colors">UMKM</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SCRIPT AOS ANIMATION & MOBILE MENU -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Inisialisasi AOS (Animasi Scroll)
+        AOS.init({
+            once: true,
+            offset: 30,
+            duration: 800,
+        });
+
+        // Toggle Mobile Menu
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // Menutup menu mobile saat link diklik
+        const mobileLinks = menu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+            });
+        });
+
+        // Database Sederhana Berita
+        const newsData = {
+            'berita-1': {
+                title: 'Kerja Bakti Rutin Pembersihan Saluran Air Menjelang Musim Penghujan',
+                category: 'Gotong Royong',
+                date: '12 Jul 2026',
+                image: 'https://picsum.photos/seed/kerjabakti/1200/800',
+                body: `
+                    <p class="font-semibold text-xl text-gray-900 mb-6">Dusun Salehan kembali menunjukkan semangat guyub rukun melalui kegiatan kerja bakti rutin yang diadakan pada akhir pekan lalu. Fokus utama kali ini adalah pembersihan saluran air dan gorong-gorong di sepanjang jalan utama RT 04 dan RT 05.</p>
+                    <p>Kegiatan yang dimulai sejak pukul 07.00 WIB ini diikuti oleh puluhan warga, mulai dari pemuda hingga tokoh masyarakat. Berbekal cangkul, sapu lidi, dan gerobak dorong, warga bahu-membahu mengangkat endapan lumpur dan tumpukan sampah yang berpotensi menyumbat aliran air saat hujan deras turun.</p>
+                    <div class="my-8 p-6 md:p-8 bg-salehan-50 rounded-[2rem] border border-salehan-100 relative">
+                        <i class="fa-solid fa-quote-left absolute text-4xl text-salehan-200 top-4 left-4 opacity-50"></i>
+                        <p class="relative z-10 italic text-gray-800 font-medium text-lg m-0">"Kami ingin memastikan lingkungan siap menghadapi curah hujan tinggi yang diprediksi akan datang bulan depan. Pencegahan bersama jauh lebih baik daripada harus mengurus banjir nantinya," <span class="block text-sm text-gray-500 not-italic mt-2">— Pak Budi, Perwakilan RT 04</span></p>
+                    </div>
+                    <p>Setelah kurang lebih empat jam bekerja, kegiatan diakhiri dengan makan bersama atau tradisi <em>'kembul bujono'</em>. Hidangannya disiapkan secara sukarela oleh ibu-ibu dari Dusun Salehan. Menu urap sayur, tempe mendoan, dan teh hangat menjadi penutup manis dari lelahnya bergotong royong hari itu.</p>
+                    <p>Kegiatan seperti ini diharapkan tidak hanya menjaga kebersihan fisik lingkungan desa, tetapi juga terus merawat kebersihan hati dan mempererat silaturahmi antar warga Dusun Salehan.</p>
+                `
+            },
+            'berita-2': {
+                title: 'Semarak Lomba 17 Agustus di Lapangan Dusun, Penuh Canda Tawa Warga',
+                category: 'HUT Kemerdekaan RI',
+                date: '17 Agu 2026',
+                image: 'https://picsum.photos/seed/lomba17/1200/800',
+                body: `
+                    <p class="font-semibold text-xl text-gray-900 mb-6">Peringatan Hari Ulang Tahun (HUT) Kemerdekaan Republik Indonesia yang ke-81 di Dusun Salehan berlangsung dengan sangat meriah dan penuh antusiasme warga dari segala usia.</p>
+                    <p>Pusat kegiatan dilangsungkan di Lapangan Dusun. Acara diawali pada pagi hari dengan jalan sehat bersama mengelilingi wilayah pedesaan. Setelah itu, kemeriahan langsung memuncak dengan dimulainya rangkaian perlombaan tradisional yang telah disiapkan panitia selama berminggu-minggu.</p>
+                    <h3 class="text-2xl font-bold text-gray-900 mt-10 mb-4">Beragam Perlombaan Lintas Generasi</h3>
+                    <p>Panitia karang taruna telah menyiapkan berbagai lomba menarik. Untuk anak-anak, ada lomba klasik seperti makan kerupuk, balap karung memakai helm, dan pecah air. Sementara itu, lomba untuk orang dewasa tidak kalah heboh, menuntut kekompakan antar RT.</p>
+                    <ul class="list-disc pl-6 space-y-2 mb-6 mt-4 text-gray-600">
+                        <li>Tarik tambang lumpur antar pemuda RT 04 vs RT 05.</li>
+                        <li>Lomba panjat pinang dengan hadiah utama sepeda angin.</li>
+                        <li>Lomba merias wajah pasangan dengan mata tertutup (khusus ibu-ibu dan bapak-bapak).</li>
+                    </ul>
+                    <p>Acara puncak ditutup dengan pembagian hadiah dan panggung hiburan rakyat sederhana pada malam harinya. Kesuksesan acara ini berkat dana swadaya masyarakat dan dukungan langsung dari para pelaku UMKM lokal yang mensponsori berbagai bingkisan hadiah.</p>
+                `
+            },
+            'berita-3': {
+                title: 'Rapat Karang Taruna: Bahas Inovasi Digital untuk Berdayakan UMKM',
+                category: 'Karang Taruna',
+                date: '05 Agu 2026',
+                image: 'https://picsum.photos/seed/karangtaruna/1200/800',
+                body: `
+                    <p class="font-semibold text-xl text-gray-900 mb-6">Pemuda-pemudi yang tergabung dalam Karang Taruna Dusun Salehan menggelar rapat koordinasi bulanan rutin. Namun, ada yang istimewa pada agenda kali ini, karena fokus pembahasan dialihkan pada pemberdayaan UMKM lokal melalui adaptasi teknologi digital.</p>
+                    <p>Dalam pertemuan yang diadakan di Balai RT, Ketua Karang Taruna memaparkan rencana kerja baru bertajuk <strong>"Salehan Go Digital"</strong>. Program ini dicetuskan untuk merespon kebutuhan para pelaku usaha kecil di RT 04 dan RT 05 yang mayoritas pemasarannya masih mengandalkan cara konvensional dari mulut ke mulut warga sekitar.</p>
+                    <h3 class="text-2xl font-bold text-gray-900 mt-10 mb-4">Fokus Pendampingan Pemuda</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
+                        <div class="bg-gray-50 p-4 rounded-2xl border border-gray-100">
+                            <i class="fa-solid fa-map-location-dot text-salehan-500 text-2xl mb-2"></i>
+                            <h4 class="font-bold text-gray-900 mb-1">Petaan Lokasi</h4>
+                            <p class="text-sm">Pembuatan & verifikasi titik lokasi usaha warga di aplikasi Google Maps.</p>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-2xl border border-gray-100">
+                            <i class="fa-solid fa-camera text-salehan-500 text-2xl mb-2"></i>
+                            <h4 class="font-bold text-gray-900 mb-1">Foto Produk</h4>
+                            <p class="text-sm">Pelatihan dasar pengambilan foto makanan & kerajinan menggunakan smartphone.</p>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-2xl border border-gray-100">
+                            <i class="fa-solid fa-mobile-screen text-salehan-500 text-2xl mb-2"></i>
+                            <h4 class="font-bold text-gray-900 mb-1">Pemasaran Sosmed</h4>
+                            <p class="text-sm">Pembuatan akun promosi kolektif Dusun Salehan di Instagram dan TikTok.</p>
+                        </div>
+                    </div>
+                    <p>Beberapa pemilik UMKM yang turut diundang sebagai perwakilan menyambut antusias gagasan cemerlang dari para pemuda ini. Mereka berharap kolaborasi lintas generasi ini bisa mendongkrak penjualan dan memperkenalkan produk karya warga Dusun Salehan ke masyarakat luar daerah.</p>
+                `
+            }
+        };
+
+        // Logika Menampilkan Halaman Detail
+        function openNews(id) {
+            const data = newsData[id];
+            if(!data) return;
+
+            // Memasukkan data ke dalam template HTML
+            document.getElementById('detail-title').innerText = data.title;
+            document.getElementById('detail-category').innerText = data.category;
+            document.getElementById('detail-date').innerHTML = '<i class="fa-regular fa-calendar mr-2"></i> ' + data.date;
+            document.getElementById('detail-image').src = data.image;
+            document.getElementById('detail-body').innerHTML = data.body;
+
+            // Menampilkan overlay dengan animasi geser dari kanan
+            const overlay = document.getElementById('news-detail-overlay');
+            overlay.classList.remove('translate-x-full');
+            overlay.classList.add('translate-x-0');
+            
+            // Mengunci scroll di halaman utama (background)
+            document.body.classList.add('overflow-hidden');
+            
+            // Scroll ke bagian paling atas dari overlay artikel
+            overlay.scrollTo(0, 0);
+        }
+
+        // Logika Menutup Halaman Detail
+        function closeNews() {
+            const overlay = document.getElementById('news-detail-overlay');
+            
+            // Menggeser overlay kembali ke kanan
+            overlay.classList.remove('translate-x-0');
+            overlay.classList.add('translate-x-full');
+            
+            // Membuka kunci scroll setelah animasi selesai (700ms sesuai durasi transisi Tailwind)
+            setTimeout(() => {
+                document.body.classList.remove('overflow-hidden');
+            }, 700);
+        }
+
+        // Fungsi Salin Link (Fitur Interaktif)
+        function copyLink(event) {
+            // Membuat elemen input sementara untuk proses copy
+            const tempInput = document.createElement('input');
+            tempInput.value = window.location.href; // Mengambil URL website saat ini
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+            
+            // Feedback visual: ubah icon link menjadi tanda centang hijau sesaat
+            const btn = event.currentTarget;
+            const originalHTML = btn.innerHTML;
+            btn.innerHTML = '<i class="fa-solid fa-check text-salehan-500 transition-all scale-125"></i>';
+            
+            // Kembalikan ke icon asli setelah 2 detik
+            setTimeout(() => {
+                btn.innerHTML = originalHTML;
+            }, 2000);
+        }
+    </script>
+
+    <!-- SCRIPT SUPABASE BUAT NARIK DATA DINAMIS -->
+    <script type="module">
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
+  
+        // GANTI 2 INI PAKE PUNYA LU DARI SUPABASE > SETTINGS > API
+        const SUPABASE_URL = 'https://vufymausskugbgnrtinx.supabase.co' 
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ1ZnltYXVzc2t1Z2JnbnJ0aW54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM5MDQwODksImV4cCI6MjA5OTQ4MDA4OX0.SFXT6xCeQtShORlC2TPNhW3BI3Tj4vI2oD07wcRBKwU' 
+        
+        const supabase = createClient(SUPABASE_URL, SUPABASE_KEY)
+  
+        async function loadProfil() {
+          const { data: profil, error } = await supabase
+            .from('profil_desa')
+            .select('*')
+            .eq('id', 1)
+            .single()
+  
+          if (error) {
+            console.log('Gagal load profil:', error)
+            return
+          }
+  
+          if (!profil) return
+  
+          // Ganti Nama + Tagline Utama
+          if (profil.nama) document.getElementById('nama-dusun').innerText = profil.nama
+          if (profil.tagline) document.getElementById('tagline-dusun').innerText = profil.tagline
+  
+          // Ganti Gambar Hero
+          if (profil.image) document.getElementById('hero-image').src = profil.image
+  
+          // Ganti Section Wilayah
+          if (profil.wilayah_judul) document.getElementById('wilayah-judul').innerText = profil.wilayah_judul
+          if (profil.wilayah_rt) document.getElementById('wilayah-rt').innerText = profil.wilayah_rt
+          if (profil.wilayah_deskripsi) document.getElementById('wilayah-deskripsi').innerText = profil.wilayah_deskripsi
+  
+          // Ganti Section UMKM
+          if (profil.umkm_judul) document.getElementById('umkm-judul').innerText = profil.umkm_judul
+          if (profil.umkm_deskripsi) document.getElementById('umkm-deskripsi').innerText = profil.umkm_deskripsi
+          if (profil.umkm_icon) document.getElementById('umkm-icon').className = `fa-solid ${profil.umkm_icon}`
+  
+          // Ganti Foto Warga
+          if (profil.warga_img_1) document.getElementById('warga-img-1').src = profil.warga_img_1
+          if (profil.warga_img_2) document.getElementById('warga-img-2').src = profil.warga_img_2
+          if (profil.warga_img_3) document.getElementById('warga-img-3').src = profil.warga_img_3
+          if (profil.warga_jumlah) document.getElementById('warga-jumlah').innerText = profil.warga_jumlah
+  
+          // Ganti Section Peta
+          if (profil.peta_judul) document.getElementById('peta-judul').innerText = profil.peta_judul
+          if (profil.peta_deskripsi) document.getElementById('peta-deskripsi').innerText = profil.peta_deskripsi
+          if (profil.peta_link) document.getElementById('peta-link').href = profil.peta_link
+          if (profil.gmaps) document.getElementById('gmaps-iframe').src = profil.gmaps
+  
+          // Ganti Title Halaman
+          document.title = profil.nama + ' - Profil Dusun'
+        }
+  
+        loadProfil()
+      </script>
+  </body>
+  </html>
+  </body>
+  </html>
+  <script type="module">
+    import { supabase } from './supabase.js'
+  
+    async function loadProfil() {
+      const { data: profil, error } = await supabase
+        .from('profil_desa')
+        .select('*')
+        .eq('id', 1)
+        .single()
+  
+      if (error) {
+        console.log('Gagal load profil:', error)
+        return
+      }
+  
+      if (!profil) return
+  
+      // Ganti Nama + Tagline Utama
+      if (profil.nama) document.getElementById('nama-dusun').innerText = profil.nama
+      if (profil.tagline) document.getElementById('tagline-dusun').innerText = profil.tagline
+  
+      // Ganti Gambar Hero
+      if (profil.image) document.getElementById('hero-image').src = profil.image
+  
+      // Ganti Section Wilayah
+      if (profil.wilayah_judul) document.getElementById('wilayah-judul').innerText = profil.wilayah_judul
+      if (profil.wilayah_rt) document.getElementById('wilayah-rt').innerText = profil.wilayah_rt
+      if (profil.wilayah_deskripsi) document.getElementById('wilayah-deskripsi').innerText = profil.wilayah_deskripsi
+  
+      // Ganti Section UMKM
+      if (profil.umkm_judul) document.getElementById('umkm-judul').innerText = profil.umkm_judul
+      if (profil.umkm_deskripsi) document.getElementById('umkm-deskripsi').innerText = profil.umkm_deskripsi
+      if (profil.umkm_icon) document.getElementById('umkm-icon').className = `fa-solid ${profil.umkm_icon}`
+  
+      // Ganti Foto Warga
+      if (profil.warga_img_1) document.getElementById('warga-img-1').src = profil.warga_img_1
+      if (profil.warga_img_2) document.getElementById('warga-img-2').src = profil.warga_img_2
+      if (profil.warga_img_3) document.getElementById('warga-img-3').src = profil.warga_img_3
+      if (profil.warga_jumlah) document.getElementById('warga-jumlah').innerText = profil.warga_jumlah
+  
+  
+      // Ganti Title Halaman
+      document.title = profil.nama + ' - Profil Dusun'
+    }
+  
+    loadProfil()
+  </script>
+  </body>
+</body>
+</html>
