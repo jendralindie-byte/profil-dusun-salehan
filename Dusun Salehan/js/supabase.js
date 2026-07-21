@@ -1,8 +1,6 @@
-// supabase.js
-import { supabase } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2'
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2'
 
-// GANTI 2 INI DARI SUPABASE > SETTINGS > API
-const SUPABASE_URL = 'https://vufymausskugbgnrtinx.supabase.co'
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ1ZnltYXVzc2t1Z2JnbnJ0aW54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM5MDQwODksImV4cCI6MjA5OTQ4MDA4OX0.SFXT6xCeQtShORlC2TPNhW3BI3Tj4vI2oD07wcRBKwU' // Bukan sb_publishable
+const supabaseUrl = 'https://vufymausskugbgnrtinx.supabase.co' // Pake URL lu
+const supabaseKey = 'sb_publishable_hbGzKC1A9JcXCMx-nCpZVQ_MT3tJLwT' // Pake anon key lu
 
-export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+export const supabase = createClient(supabaseUrl, supabaseKey)
