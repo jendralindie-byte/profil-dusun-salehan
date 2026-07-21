@@ -252,213 +252,58 @@
 
     <!-- HALAMAN BERITA & KEGIATAN -->
     <section id="berita" class="pt-24 pb-12 relative z-10">
-        <div class="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8">
-            
-            <!-- Header Seksi Berita -->
-            <div class="mb-12 flex flex-col md:flex-row justify-between items-end gap-6" data-aos="fade-up">
-                <div class="max-w-2xl">
-                    <span class="text-salehan-500 font-bold tracking-widest uppercase text-sm mb-2 block">Kabar Terkini</span>
-                    <h2 class="font-heading text-4xl md:text-5xl font-extrabold text-gray-900 tracking-tight leading-tight">
-                        Berita & Kegiatan<br>Warga.
-                    </h2>
-                </div>
-                <a href="#" class="group hidden md:inline-flex items-center text-sm font-bold text-gray-900 hover:text-salehan-600 transition-colors">
-                    Lihat Semua <i class="fa-solid fa-arrow-right ml-2 transform group-hover:translate-x-1 transition-transform"></i>
-                </a>
+    <div class="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Header Seksi Berita -->
+        <div class="mb-12 flex flex-col md:flex-row justify-between items-end gap-6" data-aos="fade-up">
+            <div class="max-w-2xl">
+                <span class="text-salehan-500 font-bold tracking-widest uppercase text-sm mb-2 block">Kabar Terkini</span>
+                <h2 class="font-heading text-4xl md:text-5xl font-extrabold text-gray-900 tracking-tight leading-tight">
+                    Berita & Kegiatan<br>Warga.
+                </h2>
             </div>
-
-            <!-- Grid Berita (Card Style) -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                
-                <!-- Berita 1: Kerja Bakti -->
-                <div onclick="openNews('berita-1')" class="bg-white rounded-[2rem] p-4 border border-gray-100 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.05)] group hover:-translate-y-2 transition-transform duration-500 cursor-pointer" data-aos="fade-up" data-aos-delay="100">
-                    <div class="relative w-full h-56 rounded-[1.5rem] overflow-hidden mb-6">
-                        <img src="https://picsum.photos/seed/kerjabakti/600/400" alt="Kerja Bakti" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-                        <div class="absolute top-4 left-4 bg-white/90 backdrop-blur-sm text-gray-900 text-xs font-extrabold px-3 py-1.5 rounded-full shadow-sm">
-                            <i class="fa-regular fa-calendar mr-1 text-salehan-500"></i> 12 Jul 2026
-                        </div>
-                    </div>
-                    <div class="px-2 pb-4">
-                        <div class="text-salehan-500 font-bold text-xs uppercase tracking-wider mb-2">Gotong Royong</div>
-                        <h3 class="font-heading text-xl font-bold text-gray-900 mb-3 leading-snug group-hover:text-salehan-600 transition-colors">Kerja Bakti Rutin Pembersihan Saluran Air</h3>
-                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">Warga bergotong royong membersihkan gorong-gorong dan lingkungan sekitar menyambut musim penghujan demi mencegah banjir.</p>
-                        <span class="text-sm font-semibold text-gray-900 flex items-center">Baca selengkapnya <i class="fa-solid fa-arrow-right text-xs ml-1.5 group-hover:translate-x-1 transition-transform"></i></span>
-                    </div>
-                </div>
-
-                <!-- Berita 2: Lomba 17 Agustus -->
-                <div onclick="openNews('berita-2')" class="bg-white rounded-[2rem] p-4 border border-gray-100 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.05)] group hover:-translate-y-2 transition-transform duration-500 cursor-pointer" data-aos="fade-up" data-aos-delay="200">
-                    <div class="relative w-full h-56 rounded-[1.5rem] overflow-hidden mb-6">
-                        <img src="https://picsum.photos/seed/lomba17/600/400" alt="Lomba 17an" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-                        <div class="absolute top-4 left-4 bg-white/90 backdrop-blur-sm text-gray-900 text-xs font-extrabold px-3 py-1.5 rounded-full shadow-sm">
-                            <i class="fa-regular fa-calendar mr-1 text-salehan-500"></i> 17 Agu 2026
-                        </div>
-                    </div>
-                    <div class="px-2 pb-4">
-                        <div class="text-red-500 font-bold text-xs uppercase tracking-wider mb-2">HUT Kemerdekaan RI</div>
-                        <h3 class="font-heading text-xl font-bold text-gray-900 mb-3 leading-snug group-hover:text-salehan-600 transition-colors">Semarak Lomba 17 Agustus di Lapangan Dusun</h3>
-                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">Kemeriahan perayaan kemerdekaan dengan berbagai lomba seru yang diikuti anak-anak hingga dewasa, mulai dari panjat pinang hingga tarik tambang.</p>
-                        <span class="text-sm font-semibold text-gray-900 flex items-center">Baca selengkapnya <i class="fa-solid fa-arrow-right text-xs ml-1.5 group-hover:translate-x-1 transition-transform"></i></span>
-                    </div>
-                </div>
-
-                <!-- Berita 3: Rapat Pemuda -->
-                <div onclick="openNews('berita-3')" class="bg-white rounded-[2rem] p-4 border border-gray-100 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.05)] group hover:-translate-y-2 transition-transform duration-500 cursor-pointer" data-aos="fade-up" data-aos-delay="300">
-                    <div class="relative w-full h-56 rounded-[1.5rem] overflow-hidden mb-6">
-                        <img src="https://picsum.photos/seed/karangtaruna/600/400" alt="Rapat Pemuda" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-                        <div class="absolute top-4 left-4 bg-white/90 backdrop-blur-sm text-gray-900 text-xs font-extrabold px-3 py-1.5 rounded-full shadow-sm">
-                            <i class="fa-regular fa-calendar mr-1 text-salehan-500"></i> 05 Agu 2026
-                        </div>
-                    </div>
-                    <div class="px-2 pb-4">
-                        <div class="text-blue-500 font-bold text-xs uppercase tracking-wider mb-2">Karang Taruna</div>
-                        <h3 class="font-heading text-xl font-bold text-gray-900 mb-3 leading-snug group-hover:text-salehan-600 transition-colors">Rapat Karang Taruna Bahas Inovasi Digital UMKM</h3>
-                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">Pemuda-pemudi desa menggelar rapat rutin untuk merencanakan pendampingan pemasaran online bagi pelaku UMKM di Dusun Salehan.</p>
-                        <span class="text-sm font-semibold text-gray-900 flex items-center">Baca selengkapnya <i class="fa-solid fa-arrow-right text-xs ml-1.5 group-hover:translate-x-1 transition-transform"></i></span>
-                    </div>
-                </div>
-
-            </div>
-            
-            <!-- Tombol Mobile View -->
-            <div class="mt-8 text-center md:hidden" data-aos="fade-up">
-                <a href="#" class="inline-flex items-center justify-center bg-gray-100 text-sm font-bold text-gray-900 hover:bg-gray-200 py-3 px-6 rounded-full transition-colors w-full">
-                    Lihat Semua Berita <i class="fa-solid fa-arrow-right ml-2"></i>
-                </a>
-            </div>
-
+            <a href="#" class="group hidden md:inline-flex items-center text-sm font-bold text-gray-900 hover:text-salehan-600 transition-colors">
+                Lihat Semua <i class="fa-solid fa-arrow-right ml-2 transform group-hover:translate-x-1 transition-transform"></i>
+            </a>
         </div>
-    </section>
+
+        <!-- Grid Berita Dinamis -->
+        <div id="listBerita" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <p class="col-span-3 text-center text-gray-500">Loading berita...</p>
+        </div>
+        
+        <!-- Tombol Mobile View -->
+        <div class="mt-8 text-center md:hidden" data-aos="fade-up">
+            <a href="#" class="inline-flex items-center justify-center bg-gray-100 text-sm font-bold text-gray-900 hover:bg-gray-200 py-3 px-6 rounded-full transition-colors w-full">
+                Lihat Semua Berita <i class="fa-solid fa-arrow-right ml-2"></i>
+            </a>
+        </div>
+
+    </div>
+</section>
 
     <!-- HALAMAN UMKM -->
     <section id="umkm" class="pt-16 pb-24 relative z-10 bg-white rounded-t-[3rem] mt-12 shadow-[0_-20px_60px_-15px_rgba(0,0,0,0.05)] border-t border-gray-100/50">
-        <div class="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8">
-            <!-- Header UMKM -->
-            <div class="mb-12 flex flex-col md:flex-row justify-between items-end gap-6" data-aos="fade-up">
-                <div class="max-w-2xl">
-                    <span class="text-salehan-500 font-bold tracking-widest uppercase text-sm mb-2 block">Potensi Desa</span>
-                    <h2 class="font-heading text-4xl md:text-5xl font-extrabold text-gray-900 tracking-tight leading-tight">
-                        Jelajah UMKM<br>Warga RT 04 & 05.
-                    </h2>
-                </div>
-                <p class="text-gray-500 font-medium max-w-sm md:text-right text-sm">
-                    Dukung kemandirian ekonomi desa dengan bangga membeli produk lokal karya tetangga kita sendiri.
-                </p>
+    <div class="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Header UMKM -->
+        <div class="mb-12 flex flex-col md:flex-row justify-between items-end gap-6" data-aos="fade-up">
+            <div class="max-w-2xl">
+                <span class="text-salehan-500 font-bold tracking-widest uppercase text-sm mb-2 block">Potensi Desa</span>
+                <h2 class="font-heading text-4xl md:text-5xl font-extrabold text-gray-900 tracking-tight leading-tight">
+                    Jelajah UMKM<br>Warga RT 04 & 05.
+                </h2>
             </div>
-
-            <!-- Grid UMKM (Hover Reveal Style) -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                
-                <!-- UMKM 1 -->
-                <div class="group relative h-96 rounded-[2rem] overflow-hidden cursor-pointer shadow-lg" data-aos="fade-up" data-aos-delay="100">
-                    <img src="https://picsum.photos/seed/umkm1/600/800" alt="Warung Bu Tejo" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
-                    <!-- Gradient Overlay (Darkens on Hover) -->
-                    <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40 to-transparent opacity-80 group-hover:opacity-95 transition-opacity duration-300"></div>
-                    
-                    <!-- Konten UMKM -->
-                    <div class="absolute inset-0 p-6 flex flex-col justify-end">
-                        <div class="transform translate-y-8 group-hover:translate-y-0 transition-transform duration-500 ease-out">
-                            <span class="bg-salehan-500 text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full mb-3 inline-block shadow-md">Kuliner</span>
-                            <h3 class="font-heading text-2xl font-bold text-white mb-1">Warung Makan Bu Tejo</h3>
-                            <!-- Deskripsi & Tombol (Muncul saat Hover) -->
-                            <div class="opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
-                                <p class="text-gray-300 text-sm mb-5 leading-relaxed">Menyediakan soto ayam, pecel lele, dan aneka penyetan segar.</p>
-                                
-                                <!-- Tombol Kontak -->
-                                <div class="flex gap-2">
-                                    <a href="https://wa.me/6281234567890" target="_blank" class="flex-1 bg-[#25D366] hover:bg-[#20bd5a] text-white text-center py-2.5 rounded-xl font-bold text-sm transition-transform active:scale-95 flex items-center justify-center gap-2 shadow-lg shadow-[#25D366]/30">
-                                        <i class="fa-brands fa-whatsapp text-lg"></i> Pesan WA
-                                    </a>
-                                    <a href="#" title="Buka di Maps" class="w-12 bg-white/20 hover:bg-white/30 backdrop-blur-md text-white flex items-center justify-center rounded-xl transition-all active:scale-95 border border-white/30">
-                                        <i class="fa-solid fa-location-dot"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- UMKM 2 -->
-                <div class="group relative h-96 rounded-[2rem] overflow-hidden cursor-pointer shadow-lg" data-aos="fade-up" data-aos-delay="200">
-                    <img src="https://picsum.photos/seed/umkm2/600/800" alt="Kerajinan Bambu" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
-                    <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40 to-transparent opacity-80 group-hover:opacity-95 transition-opacity duration-300"></div>
-                    
-                    <div class="absolute inset-0 p-6 flex flex-col justify-end">
-                        <div class="transform translate-y-8 group-hover:translate-y-0 transition-transform duration-500 ease-out">
-                            <span class="bg-amber-500 text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full mb-3 inline-block shadow-md">Kriya</span>
-                            <h3 class="font-heading text-2xl font-bold text-white mb-1">Bambu Lestari</h3>
-                            
-                            <div class="opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
-                                <p class="text-gray-300 text-sm mb-5 leading-relaxed">Kerajinan anyaman bambu untuk dekorasi rumah dan alat dapur.</p>
-                                
-                                <div class="flex gap-2">
-                                    <a href="https://wa.me/6281234567890" target="_blank" class="flex-1 bg-[#25D366] hover:bg-[#20bd5a] text-white text-center py-2.5 rounded-xl font-bold text-sm transition-transform active:scale-95 flex items-center justify-center gap-2 shadow-lg shadow-[#25D366]/30">
-                                        <i class="fa-brands fa-whatsapp text-lg"></i> Pesan WA
-                                    </a>
-                                    <a href="#" title="Buka di Maps" class="w-12 bg-white/20 hover:bg-white/30 backdrop-blur-md text-white flex items-center justify-center rounded-xl transition-all active:scale-95 border border-white/30">
-                                        <i class="fa-solid fa-location-dot"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- UMKM 3 -->
-                <div class="group relative h-96 rounded-[2rem] overflow-hidden cursor-pointer shadow-lg" data-aos="fade-up" data-aos-delay="300">
-                    <img src="https://picsum.photos/seed/umkm3/600/800" alt="Toko Makmur" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
-                    <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40 to-transparent opacity-80 group-hover:opacity-95 transition-opacity duration-300"></div>
-                    
-                    <div class="absolute inset-0 p-6 flex flex-col justify-end">
-                        <div class="transform translate-y-8 group-hover:translate-y-0 transition-transform duration-500 ease-out">
-                            <span class="bg-blue-500 text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full mb-3 inline-block shadow-md">Toko</span>
-                            <h3 class="font-heading text-2xl font-bold text-white mb-1">Toko Makmur Jaya</h3>
-                            
-                            <div class="opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
-                                <p class="text-gray-300 text-sm mb-5 leading-relaxed">Sedia kebutuhan pokok, sembako, minyak, dan gas LPG 3kg.</p>
-                                
-                                <div class="flex gap-2">
-                                    <a href="https://wa.me/6281234567890" target="_blank" class="flex-1 bg-[#25D366] hover:bg-[#20bd5a] text-white text-center py-2.5 rounded-xl font-bold text-sm transition-transform active:scale-95 flex items-center justify-center gap-2 shadow-lg shadow-[#25D366]/30">
-                                        <i class="fa-brands fa-whatsapp text-lg"></i> Hubungi
-                                    </a>
-                                    <a href="#" title="Buka di Maps" class="w-12 bg-white/20 hover:bg-white/30 backdrop-blur-md text-white flex items-center justify-center rounded-xl transition-all active:scale-95 border border-white/30">
-                                        <i class="fa-solid fa-location-dot"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- UMKM 4 -->
-                <div class="group relative h-96 rounded-[2rem] overflow-hidden cursor-pointer shadow-lg" data-aos="fade-up" data-aos-delay="400">
-                    <img src="https://picsum.photos/seed/umkm4/600/800" alt="Jajanan Pasar" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
-                    <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40 to-transparent opacity-80 group-hover:opacity-95 transition-opacity duration-300"></div>
-                    
-                    <div class="absolute inset-0 p-6 flex flex-col justify-end">
-                        <div class="transform translate-y-8 group-hover:translate-y-0 transition-transform duration-500 ease-out">
-                            <span class="bg-pink-500 text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full mb-3 inline-block shadow-md">Camilan</span>
-                            <h3 class="font-heading text-2xl font-bold text-white mb-1">Jajanan Mbak Nur</h3>
-                            
-                            <div class="opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
-                                <p class="text-gray-300 text-sm mb-5 leading-relaxed">Menerima pesanan lemper, pastel, dan snack box untuk arisan.</p>
-                                
-                                <div class="flex gap-2">
-                                    <a href="https://wa.me/6281234567890" target="_blank" class="flex-1 bg-[#25D366] hover:bg-[#20bd5a] text-white text-center py-2.5 rounded-xl font-bold text-sm transition-transform active:scale-95 flex items-center justify-center gap-2 shadow-lg shadow-[#25D366]/30">
-                                        <i class="fa-brands fa-whatsapp text-lg"></i> Pesan WA
-                                    </a>
-                                    <a href="#" title="Buka di Maps" class="w-12 bg-white/20 hover:bg-white/30 backdrop-blur-md text-white flex items-center justify-center rounded-xl transition-all active:scale-95 border border-white/30">
-                                        <i class="fa-solid fa-location-dot"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
+            <p class="text-gray-500 font-medium max-w-sm md:text-right text-sm">
+                Dukung kemandirian ekonomi desa dengan bangga membeli produk lokal karya tetangga kita sendiri.
+            </p>
         </div>
-    </section>
+
+        <!-- Grid UMKM Dinamis - INI YANG PENTING -->
+        <div id="listUMKM" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <p class="col-span-4 text-center text-gray-500">Loading UMKM...</p>
+        </div>
+    </div>
+</section>
 
     <!-- HALAMAN DETAIL BERITA (OVERLAY MULTIPAGE) -->
     <div id="news-detail-overlay" class="fixed inset-0 bg-white z-[100] transform translate-x-full transition-transform duration-700 ease-in-out overflow-y-auto">
@@ -689,82 +534,133 @@
         </script>  <!-- INI SCRIPT BUTTON LU YANG SEBELUMNYA -->
 
     <!-- SCRIPT SUPABASE BUAT NARIK DATA DINAMIS -->
-    <script type="module">
-      import { supabase } from './js/supabase.js'
+<script type="module">
+  import { supabase } from './js/supabase.js'
 
-      // 1. LOAD PROFIL DESA
-      async function loadProfil() {
-        const { data: profil, error } = await supabase
-          .from('profil_desa')
-          .select('*')
-          .eq('id', 1)
-          .single()
+  // JALANIN SETELAH HTML KELOAD SEMUA
+  document.addEventListener('DOMContentLoaded', () => {
+    loadProfil()
+    loadBerita()
+    loadUMKM()
+  })
 
-        if (error) return console.log('Gagal load profil:', error)
-        if (!profil) return
+  // 1. LOAD PROFIL DESA
+  async function loadProfil() {
+    const { data: profil, error } = await supabase
+      .from('profil_desa')
+      .select('*')
+      .eq('id', 1)
+      .single()
 
-        if (profil.nama) document.getElementById('nama-dusun').innerText = profil.nama
-        if (profil.tagline) document.getElementById('tagline-dusun').innerText = profil.tagline
-        if (profil.image) document.getElementById('hero-image').src = profil.image
-        if (profil.wilayah_judul) document.getElementById('wilayah-judul').innerText = profil.wilayah_judul
-        if (profil.wilayah_rt) document.getElementById('wilayah-rt').innerText = profil.wilayah_rt
-        if (profil.wilayah_deskripsi) document.getElementById('wilayah-deskripsi').innerText = profil.wilayah_deskripsi
-        if (profil.umkm_judul) document.getElementById('umkm-judul').innerText = profil.umkm_judul
-        if (profil.umkm_deskripsi) document.getElementById('umkm-deskripsi').innerText = profil.umkm_deskripsi
-        if (profil.umkm_icon) document.getElementById('umkm-icon').className = `fa-solid ${profil.umkm_icon}`
-        if (profil.warga_img_1) document.getElementById('warga-img-1').src = profil.warga_img_1
-        if (profil.warga_img_2) document.getElementById('warga-img-2').src = profil.warga_img_2
-        if (profil.warga_img_3) document.getElementById('warga-img-3').src = profil.warga_img_3
-        if (profil.warga_jumlah) document.getElementById('warga-jumlah').innerText = profil.warga_jumlah
-        if (profil.peta_judul) document.getElementById('peta-judul').innerText = profil.peta_judul
-        if (profil.peta_deskripsi) document.getElementById('peta-deskripsi').innerText = profil.peta_deskripsi
-        if (profil.peta_link) document.getElementById('peta-link').href = profil.peta_link
-        if (profil.gmaps) document.getElementById('gmaps-iframe').src = profil.gmaps
-        document.title = profil.nama + ' - Profil Dusun'
-      }
+    if (error) return console.log('Gagal load profil:', error)
+    if (!profil) return
 
-      // 2. LOAD BERITA
-      async function loadBerita() {
-        const { data: berita, error } = await supabase
-          .from('berita')
-          .select('*')
-          .order('tanggal', { ascending: false })
-        
-        if (error) return document.getElementById('listBerita').innerText = 'Gagal load: ' + error.message
-        
-        document.getElementById('listBerita').innerHTML = berita?.length 
-          ? berita.map(b => `
-            <div style="border:1px solid #ddd; padding:12px; margin:8px 0">
-              <h3>${b.judul}</h3>
-              <p>${b.konten}</p>
-              <small>${new Date(b.tanggal).toLocaleDateString('id-ID')}</small>
+    // Pake optional chaining biar ga error kalo id ga ketemu
+    document.getElementById('nama-dusun')?.innerText = profil.nama || ''
+    document.getElementById('tagline-dusun')?.innerText = profil.tagline || ''
+    if (profil.image) document.getElementById('hero-image')?.setAttribute('src', profil.image)
+    document.getElementById('wilayah-judul')?.innerText = profil.wilayah_judul || ''
+    document.getElementById('wilayah-rt')?.innerText = profil.wilayah_rt || ''
+    document.getElementById('wilayah-deskripsi')?.innerText = profil.wilayah_deskripsi || ''
+    document.getElementById('umkm-judul')?.innerText = profil.umkm_judul || ''
+    document.getElementById('umkm-deskripsi')?.innerText = profil.umkm_deskripsi || ''
+    if (profil.umkm_icon) document.getElementById('umkm-icon')?.setAttribute('class', `fa-solid ${profil.umkm_icon}`)
+    if (profil.warga_img_1) document.getElementById('warga-img-1')?.setAttribute('src', profil.warga_img_1)
+    if (profil.warga_img_2) document.getElementById('warga-img-2')?.setAttribute('src', profil.warga_img_2)
+    if (profil.warga_img_3) document.getElementById('warga-img-3')?.setAttribute('src', profil.warga_img_3)
+    document.getElementById('warga-jumlah')?.innerText = profil.warga_jumlah || ''
+    document.getElementById('peta-judul')?.innerText = profil.peta_judul || ''
+    document.getElementById('peta-deskripsi')?.innerText = profil.peta_deskripsi || ''
+    if (profil.peta_link) document.getElementById('peta-link')?.setAttribute('href', profil.peta_link)
+    if (profil.gmaps) document.getElementById('gmaps-iframe')?.setAttribute('src', profil.gmaps)
+    document.title = (profil.nama || 'Dusun') + ' - Profil Dusun'
+  }
+
+  // 2. LOAD BERITA - PAKE DESAIN LU
+  async function loadBerita() {
+    const container = document.getElementById('listBerita')
+    if (!container) return
+
+    const { data: berita, error } = await supabase
+      .from('berita')
+      .select('*')
+      .order('tanggal', { ascending: false })
+      .limit(3)
+
+    if (error) return container.innerHTML = `<p class="col-span-3 text-center text-red-500">Gagal load: ${error.message}</p>`
+
+    container.innerHTML = berita?.length
+     ? berita.map((b, i) => `
+        <div onclick="openNews('${b.id}')" class="bg-white rounded- p-4 border border-gray-100 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.05)] group hover:-translate-y-2 transition-transform duration-500 cursor-pointer" data-aos="fade-up" data-aos-delay="${100 * (i+1)}">
+            <div class="relative w-full h-56 rounded-[1.5rem] overflow-hidden mb-6">
+                <img src="${b.gambar || 'https://picsum.photos/seed/news/600/400'}" alt="${b.judul}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                <div class="absolute top-4 left-4 bg-white/90 backdrop-blur-sm text-gray-900 text-xs font-extrabold px-3 py-1.5 rounded-full shadow-sm">
+                    <i class="fa-regular fa-calendar mr-1 text-salehan-500"></i> ${new Date(b.tanggal).toLocaleDateString('id-ID', {day:'numeric', month:'short', year:'numeric'})}
+                </div>
             </div>
-          `).join('') 
-          : 'Belum ada berita'
-      }
-
-      // 3. LOAD UMKM
-      async function loadUMKM() {
-        const { data: umkm, error } = await supabase.from('umkm').select('*')
-        
-        if (error) return document.getElementById('listUMKM').innerText = 'Gagal load: ' + error.message
-        
-        document.getElementById('listUMKM').innerHTML = umkm?.length
-          ? umkm.map(u => `
-            <div style="border:1px solid #ddd; padding:12px; margin:8px 0">
-              <b>${u.nama}</b>
-              <p>${u.deskripsi}</p>
-              <a href="https://wa.me/${u.wa}" target="_blank">Chat WA</a>
+            <div class="px-2 pb-4">
+                <div class="text-salehan-500 font-bold text-xs uppercase tracking-wider mb-2">Berita Desa</div>
+                <h3 class="font-heading text-xl font-bold text-gray-900 mb-3 leading-snug group-hover:text-salehan-600 transition-colors">${b.judul}</h3>
+                <p class="text-gray-500 text-sm mb-4 line-clamp-2">${b.konten}</p>
+                <span class="text-sm font-semibold text-gray-900 flex items-center">Baca selengkapnya <i class="fa-solid fa-arrow-right text-xs ml-1.5 group-hover:translate-x-1 transition-transform"></i></span>
             </div>
-          `).join('')
-          : 'Belum ada UMKM'
-      }
+        </div>
+      `).join('')
+      : '<p class="col-span-3 text-center text-gray-500">Belum ada berita</p>'
+  }
 
-      // JALANIN SEMUA
-      loadProfil()
-      loadBerita()
-      loadUMKM()
-    </script>
+  // 3. LOAD UMKM - PAKE DESAIN HOVER REVEAL LU
+  async function loadUMKM() {
+    const container = document.getElementById('listUMKM')
+    if (!container) return
+
+    const { data: umkm, error } = await supabase.from('umkm').select('*').limit(4)
+
+    if (error) return container.innerHTML = `<p class="col-span-4 text-center text-red-500">Gagal load: ${error.message}</p>`
+
+    const warnaKategori = {
+      'Kuliner': 'bg-salehan-500',
+      'Kriya': 'bg-amber-500',
+      'Toko': 'bg-blue-500',
+      'Camilan': 'bg-pink-500',
+      'Jasa': 'bg-purple-500'
+    }
+
+    container.innerHTML = umkm?.length
+    ? umkm.map((u, i) => `
+        <div class="group relative h-96 rounded- overflow-hidden cursor-pointer shadow-lg" data-aos="fade-up" data-aos-delay="${100 * (i+1)}">
+            <img src="${u.foto || 'https://picsum.photos/seed/umkm/600/800'}" alt="${u.nama}" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+            <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40 to-transparent opacity-80 group-hover:opacity-95 transition-opacity duration-300"></div>
+
+            <div class="absolute inset-0 p-6 flex flex-col justify-end">
+                <div class="transform translate-y-8 group-hover:translate-y-0 transition-transform duration-500 ease-out">
+                    <span class="${warnaKategori[u.kategori] || 'bg-gray-500'} text-white text- font-bold uppercase tracking-widest px-3 py-1.5 rounded-full mb-3 inline-block shadow-md">${u.kategori || 'UMKM'}</span>
+                    <h3 class="font-heading text-2xl font-bold text-white mb-1">${u.nama}</h3>
+
+                    <div class="opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+                        <p class="text-gray-300 text-sm mb-5 leading-relaxed">${u.deskripsi}</p>
+
+                        <div class="flex gap-2">
+                            <a href="https://wa.me/${u.wa}" target="_blank" class="flex-1 bg-[#25D366] hover:bg-[#20bd5a] text-white text-center py-2.5 rounded-xl font-bold text-sm transition-transform active:scale-95 flex items-center justify-center gap-2 shadow-lg shadow-[#25D366]/30">
+                                <i class="fa-brands fa-whatsapp text-lg"></i> Pesan WA
+                            </a>
+                            <a href="${u.maps || '#'}" target="_blank" title="Buka di Maps" class="w-12 bg-white/20 hover:bg-white/30 backdrop-blur-md text-white flex items-center justify-center rounded-xl transition-all active:scale-95 border border-white/30">
+                                <i class="fa-solid fa-location-dot"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      `).join('')
+      : '<p class="col-span-4 text-center text-gray-500">Belum ada UMKM</p>'
+  }
+
+  // DUMMY FUNCTION BUAT KLIK BERITA
+  window.openNews = (id) => {
+    alert('Buka berita ID: ' + id + '\nNanti ganti pake modal/popup ya bro')
+  }
+</script>
 </body>
 </html>
 </body>
