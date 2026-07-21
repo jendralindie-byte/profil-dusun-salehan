@@ -1,5 +1,5 @@
 // supabase.js
-import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
+import { supabase } from './js/supabase.js'
 
 // GANTI 2 INI DARI SUPABASE > SETTINGS > API
 const SUPABASE_URL = 'https://vufymausskugbgnrtinx.supabase.co'
